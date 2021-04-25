@@ -5,7 +5,9 @@ import edu.princeton.cs.algs4.*;
 
 public class Admin extends premiumUser {
 
-  public ArrayList  mypremiumUser;
+  public Admin(String nome, int idade, String local, Date inscricao, int ownedCaches, int id, ArrayList<Cache> myCache, Date dateMembership, int ownedPremCaches) {
+    super(nome, idade, local, inscricao, ownedCaches, id, myCache, dateMembership, ownedPremCaches);
+  }
 
   public void moveCache(Cache c) {
   }
