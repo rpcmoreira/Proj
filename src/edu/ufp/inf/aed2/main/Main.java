@@ -1,0 +1,7 @@
+package edu.ufp.inf.aed2.main;
+
+import edu.princeton.cs.algs4.*;
+
+public class Main{
+
+}
