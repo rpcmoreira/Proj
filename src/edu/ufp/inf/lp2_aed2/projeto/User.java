@@ -3,6 +3,7 @@ package edu.ufp.inf.lp2_aed2.projeto;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.lang.String;
+import edu.princeton.cs.algs4.*;
 
 public class User {
 
@@ -115,4 +116,6 @@ public class User {
   public User findUser(int id) {
   return null;
   }
+
+
 }

@@ -1,7 +1,6 @@
 package edu.ufp.inf.lp2_aed2.projeto;
-
-import java.util.ArrayList;
 import edu.princeton.cs.algs4.*;
+import java.util.ArrayList;
 
 public class Admin extends premiumUser {
 

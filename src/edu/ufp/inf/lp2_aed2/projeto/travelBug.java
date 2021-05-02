@@ -1,5 +1,5 @@
 package edu.ufp.inf.lp2_aed2.projeto;
-
+import edu.princeton.cs.algs4.*;
 import java.util.ArrayList;
 import java.lang.String;
 
