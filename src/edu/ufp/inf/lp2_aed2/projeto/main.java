@@ -9,21 +9,21 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         start();
+
     }
 
     public static void start(){
-        BinarySearchST <String, Integer> users = new BinarySearchST<String, Integer>();
-        BinarySearchST <String, Integer> caches = new BinarySearchST<String, Integer>();
-        BinarySearchST <String, Integer> itens = new BinarySearchST<String, Integer>();
+        BinarySearchST <Integer, String> users = new BinarySearchST<Integer, String>();
+        BinarySearchST <Integer, String> caches = new BinarySearchST<Integer, String>();
+        BinarySearchST <Integer, String> itens = new BinarySearchST<Integer, String>();
 
         try{
             File file = new File("data/input.txt");
             Scanner scan = new Scanner(file);
             int x = scan.nextInt();
             for(int i = 0; i < x; i++){
-                scan.useDelimiter(",");
-
-
+                users.put(i, scan.next());
+                users.get(1);
             }
             //System.out.println(x);
         }catch (FileNotFoundException erro){
