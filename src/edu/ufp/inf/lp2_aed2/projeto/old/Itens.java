@@ -1,6 +1,5 @@
-package edu.ufp.inf.lp2_aed2.projeto;
+package edu.ufp.inf.lp2_aed2.projeto.old;
 
-import edu.princeton.cs.algs4.*;
 import java.lang.String;
 
 public class Itens {
