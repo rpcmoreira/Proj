@@ -19,6 +19,10 @@ public class main {
         SequentialSearchST<Integer, Regiao> reg_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Travelbug> tvb_st = new SequentialSearchST<>();
 
+        SequentialSearchST<Integer, Historico> log_st = new SequentialSearchST<>();
+        SequentialSearchST<Integer, Historico> log_tb_st = new SequentialSearchST<>();
+
+
         // Leitura do ficheiro input.txt
         try{
             int itens = 0;
@@ -109,8 +113,46 @@ public class main {
                 tvb_st.put(i,tb);
             }
 
+            Scanner scan2 = new Scanner(new BufferedReader(new FileReader("data/logs.txt")));
+            x = scan2.nextInt();
+            scan2.nextLine();
+
+            for(int i = 0; i < x; i++){
+                Historico hist = new Historico();
+
+                String[] data = scan2.nextLine().split(", ");
+                hist.user = data[0];
+                hist.n_visited = Integer.parseInt(data[1]);
+                for(int y = 0; y <= hist.n_visited; y++){
+                    hist.visited[y] = data[2];
+                }
+                for(int y = 0; y <= hist.n_visited; y++){
+                    hist.date[y] = data[3];
+                }
+                log_st.put(i, hist);
+                System.out.println(log_st.get(i).toString());
+            }
+
+
+            x = scan2.nextInt();
+            scan2.nextLine();
+
+            for(int z = 0; z < x; z++){
+                Historico hist1 = new Historico();
+
+                String[] data2 = scan2.nextLine().split(", ");
+                hist1.user = data2[0];
+                hist1.n_tb =  Integer.parseInt(data2[1]);
+                hist1.tb_start =  Integer.parseInt(data2[2]);
+                hist1.tb_end =  Integer.parseInt(data2[3]);
+
+                log_tb_st.put(z, hist1);
+            }
+
         }catch (FileNotFoundException erro){
             System.out.println(erro.toString());
         }
+
+        System.out.println(log_tb_st.get(1).toString2());
     }
 }
