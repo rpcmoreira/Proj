@@ -16,6 +16,12 @@ public class Regiao {
     this.geocache = geocache;
   }
 
+  public Regiao() {
+    this.nome = "";
+    this.n_caches = 0;
+    this.geocache = new ArrayList<Geocache>();
+  }
+
   public String getNome() {
     return nome;
   }

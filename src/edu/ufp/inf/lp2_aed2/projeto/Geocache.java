@@ -20,6 +20,14 @@ public class Geocache {
     this.n_itens = n_itens;
   }
 
+  public Geocache() {
+    this.id = "";
+    this.tipo = "";
+    this.coordenadasX = 0.0f;
+    this.coordenadasY = 0.0f;
+    this.n_itens = 0;
+  }
+
   public String getId() {
     return id;
   }

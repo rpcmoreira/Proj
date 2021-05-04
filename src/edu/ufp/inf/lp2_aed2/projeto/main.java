@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class main {
@@ -24,61 +26,64 @@ public class main {
 
         // Leitura do ficheiro input.txt
         try{
+            int itens = 0;
 
             Scanner scan = new Scanner(new BufferedReader(new FileReader("data/input.txt")));
             int x = scan.nextInt();
+            scan.nextLine();
 
-            for(int i = 0; i < x; i++){
+            for(int i = 0; i < x; i++) {
                 User u = new User();
 
-                // Leitura id user
-                String token = scan.next();
-                String str = token.replace(',','\0');
-                int id = Integer.parseInt(str.trim());
+                String[] data = scan.nextLine().split(", ");
+                int id = Integer.parseInt(data[0]);
+                u.nome = data[1];
+                u.tipo = data[2];
 
-                // Leitura nome user
-                token = scan.next();
-                str = token.replace(',','\0');
-                u.nome = str.trim();
-
-                // Leitura do tipo de user
-                token = scan.next();
-                u.tipo = token;
-                //System.out.println(id + u.nome + u.tipo);
-
-                user_st.put(id,u);
+                user_st.put(id, u);
             }
 
-
-            System.out.println(user_st.get(1).toString());
-
-
-
-            /*File file = new File("data/input.txt");
-            Scanner scan = new Scanner(file);
-            int x = scan.nextInt();
+            x = scan.nextInt();
             scan.nextLine();
-            System.out.println(x);
-
 
             for(int i = 0; i < x; i++){
+                Regiao reg = new Regiao();
+                Geocache geo = new Geocache();
+                Item item = new Item();
 
-                User u = new User();
-                int id = scan.nextInt();
+                String[] data = scan.nextLine().split(", ");
+                reg.nome = data[0];
+                reg.n_caches = Integer.parseInt(data[1]);
 
-                u.nome = scan.next();
-                u.tipo = scan.next();
+                for(int j = 0; j < reg.n_caches; j++){
+                    String[] data1 = scan.nextLine().split(", ");
+                    geo.id = data1[0];
+                    int idgeo = Integer.parseInt(geo.id.replace("geocache", ""));
+                    System.out.println(idgeo);
+                    geo.tipo = data1[1];
+                    geo.coordenadasX = Float.parseFloat(data1[2]);
+                    geo.coordenadasY = Float.parseFloat(data1[3]);
+                    geo.n_itens = Integer.parseInt(data1[4]);
+                    for(int k = 1; k <= geo.n_itens; k++){
 
-                System.out.println(id + u.nome + u.tipo);
+                        item.item = data1[4+k];
+                        item.id_geo = geo.id;
+                        item_st.put(itens, item);
+                        itens++;
+                    }
+                    geo_st.put(idgeo, geo);
+                }
 
-                }*/
+                reg_st.put(i+1, reg);
 
-            //System.out.println(x);
+            }
+            for(int q = 1; q <= 18; q++){
+                System.out.println(geo_st.get(q).toString());
+            }
+            //System.out.println(reg_st.get(1).toString() + " " + reg_st.get(2).toString() + " " + reg_st.get(3).toString());
+
         }catch (FileNotFoundException erro){
             System.out.println(erro.toString());
         }
-
-
-
     }
 }

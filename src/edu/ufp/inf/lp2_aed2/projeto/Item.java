@@ -12,6 +12,11 @@ public class Item {
     this.item = item;
   }
 
+  public Item() {
+    this.id_geo = "";
+    this.item = "";
+  }
+
   public String getId_geo() {
     return id_geo;
   }
