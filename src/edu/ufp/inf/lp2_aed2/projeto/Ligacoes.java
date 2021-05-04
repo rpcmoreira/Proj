@@ -18,6 +18,13 @@ public class Ligacoes {
     this.tempo = tempo;
   }
 
+  public Ligacoes() {
+    this.id_1 = "";
+    this.id_2 = "";
+    this.distancia = 0.0f;
+    this.tempo = 0;
+  }
+
   public String getId_1() {
     return id_1;
   }
