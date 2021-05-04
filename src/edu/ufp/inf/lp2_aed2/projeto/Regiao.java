@@ -8,7 +8,6 @@ public class Regiao {
 
   public String nome;
   public int n_caches;
-
   public ArrayList<Geocache>   geocache;
 
   public Regiao(String nome, int n_caches, ArrayList<Geocache> geocache) {
@@ -50,4 +49,11 @@ public class Regiao {
   public void removeRegiao(String r) {
   }
 
+  @Override
+  public String toString() {
+    return "Regiao{" +
+            "nome='" + nome + '\'' +
+            ", n_caches=" + n_caches +
+            '}';
+  }
 }

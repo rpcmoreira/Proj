@@ -10,14 +10,12 @@ public class Ligacoes {
   public String id_2;
   public float distancia;
   public int tempo;
-  public ArrayList<Geocache> geocache;
 
-  public Ligacoes(String id_1, String id_2, float distancia, int tempo, ArrayList<Geocache> geocache) {
+  public Ligacoes(String id_1, String id_2, float distancia, int tempo) {
     this.id_1 = id_1;
     this.id_2 = id_2;
     this.distancia = distancia;
     this.tempo = tempo;
-    this.geocache = geocache;
   }
 
   public String getId_1() {
@@ -50,14 +48,6 @@ public class Ligacoes {
 
   public void setTempo(int tempo) {
     this.tempo = tempo;
-  }
-
-  public ArrayList<Geocache> getGeocache() {
-    return geocache;
-  }
-
-  public void setGeocache(ArrayList<Geocache> geocache) {
-    this.geocache = geocache;
   }
 
   public void listarLigacao(String id_1, String id_2) {

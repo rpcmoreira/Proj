@@ -56,4 +56,12 @@ public class User {
   public void logUser(int id) {
   }
 
+  @Override
+  public String toString() {
+    return "User{" +
+            "nome = '" + nome + '\'' +
+            ", tipo = '" + tipo + '\'' +
+            //", travelbug=" + travelbug +
+            '}';
+  }
 }

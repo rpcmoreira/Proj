@@ -6,12 +6,10 @@ public class Item {
 
   public String id_geo;
   public String item;
-  public Geocache Geocache;
 
-  public Item(String id_geo, String item, edu.ufp.inf.lp2_aed2.projeto.Geocache geocache) {
+  public Item(String id_geo, String item) {
     this.id_geo = id_geo;
     this.item = item;
-    Geocache = geocache;
   }
 
   public String getId_geo() {
@@ -30,18 +28,17 @@ public class Item {
     this.item = item;
   }
 
-  public edu.ufp.inf.lp2_aed2.projeto.Geocache getGeocache() {
-    return Geocache;
-  }
-
-  public void setGeocache(edu.ufp.inf.lp2_aed2.projeto.Geocache geocache) {
-    Geocache = geocache;
-  }
-
   public void removeItem(String id_geo, String item) {
   }
 
   public void addItem(String id_geo, String item) {
   }
 
+  @Override
+  public String toString() {
+    return "Item{" +
+            "id_geo='" + id_geo + '\'' +
+            ", item='" + item + '\'' +
+            '}';
+  }
 }

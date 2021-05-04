@@ -44,10 +44,14 @@ public class main {
                 // Leitura do tipo de user
                 token = scan.next();
                 u.tipo = token;
-                System.out.println(id + u.nome + u.tipo);
+                //System.out.println(id + u.nome + u.tipo);
 
                 user_st.put(id,u);
             }
+
+
+            System.out.println(user_st.get(1).toString());
+
 
 
             /*File file = new File("data/input.txt");
@@ -73,6 +77,8 @@ public class main {
         }catch (FileNotFoundException erro){
             System.out.println(erro.toString());
         }
+
+
 
     }
 }

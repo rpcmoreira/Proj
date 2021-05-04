@@ -78,4 +78,15 @@ public class Travelbug {
   public void removeTravelBug(String id) {
   }
 
+  @Override
+  public String toString() {
+    return "Travelbug{" +
+            "id='" + id + '\'' +
+            ", tb_user='" + tb_user + '\'' +
+            ", geo_inicial='" + geo_inicial + '\'' +
+            ", geo_destino='" + geo_destino + '\'' +
+            ", Geocache=" + Geocache +
+            ", user=" + user +
+            '}';
+  }
 }

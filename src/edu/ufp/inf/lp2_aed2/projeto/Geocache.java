@@ -12,38 +12,12 @@ public class Geocache {
   public float coordenadasY;
   public int n_itens;
 
-  public Regiao regiao;
-  public ArrayList<Item>  Item;
-  public ArrayList<Travelbug>   Travelbug;
-  //public ArrayList<Ligacoes>   ligacoes;
-
-  public Geocache(String id, String tipo, float coordenadasX, float coordenadasY, int n_itens, Regiao regiao) {
+  public Geocache(String id, String tipo, float coordenadasX, float coordenadasY, int n_itens) {
     this.id = id;
     this.tipo = tipo;
     this.coordenadasX = coordenadasX;
     this.coordenadasY = coordenadasY;
     this.n_itens = n_itens;
-    this.regiao = regiao;
-  }
-
-  public Geocache(String id, String tipo, float coordenadasX, float coordenadasY, int n_itens, ArrayList<edu.ufp.inf.lp2_aed2.projeto.Item> item, Regiao regiao) {
-    this.id = id;
-    this.tipo = tipo;
-    this.coordenadasX = coordenadasX;
-    this.coordenadasY = coordenadasY;
-    this.n_itens = n_itens;
-    this.regiao = regiao;
-    Item = item;
-  }
-
-  public Geocache(String id, String tipo, float coordenadasX, float coordenadasY, int n_itens, Regiao regiao, ArrayList<edu.ufp.inf.lp2_aed2.projeto.Travelbug> travelbug) {
-    this.id = id;
-    this.tipo = tipo;
-    this.coordenadasX = coordenadasX;
-    this.coordenadasY = coordenadasY;
-    this.n_itens = n_itens;
-    this.regiao = regiao;
-    Travelbug = travelbug;
   }
 
   public String getId() {
@@ -86,29 +60,6 @@ public class Geocache {
     this.n_itens = n_itens;
   }
 
-  public Regiao getRegiao() {
-    return regiao;
-  }
-
-  public void setRegiao(Regiao regiao) {
-    this.regiao = regiao;
-  }
-
-  public ArrayList<edu.ufp.inf.lp2_aed2.projeto.Item> getItem() {
-    return Item;
-  }
-
-  public void setItem(ArrayList<edu.ufp.inf.lp2_aed2.projeto.Item> item) {
-    Item = item;
-  }
-
-  public ArrayList<edu.ufp.inf.lp2_aed2.projeto.Travelbug> getTravelbug() {
-    return Travelbug;
-  }
-
-  public void setTravelbug(ArrayList<edu.ufp.inf.lp2_aed2.projeto.Travelbug> travelbug) {
-    Travelbug = travelbug;
-  }
 
   public void addGeocache(int id, String tipo, float cX, float cY, int n_itens, String itens) {
   }
@@ -119,4 +70,14 @@ public class Geocache {
   public void listarItens(int id) {
   }
 
+  @Override
+  public String toString() {
+    return "Geocache{" +
+            "id='" + id + '\'' +
+            ", tipo='" + tipo + '\'' +
+            ", coordenadasX=" + coordenadasX +
+            ", coordenadasY=" + coordenadasY +
+            ", n_itens=" + n_itens +
+            '}';
+  }
 }
