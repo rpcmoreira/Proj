@@ -1,28 +1,23 @@
 package edu.ufp.inf.lp2_aed2.projeto;
-import edu.princeton.cs.algs4.*;
 
 import java.lang.String;
 
 public class User {
 
-  public int id;
   public String nome;
   public String tipo;
-  public Travelbug travelbug;
+  public int travelbug;
 
-  public User(int id, String nome, String tipo, Travelbug travelbug) {
-    this.id = id;
+  public User(String nome, String tipo, int travelbug) {
     this.nome = nome;
     this.tipo = tipo;
     this.travelbug = travelbug;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
+  public User() {
+    this.nome = "";
+    this.tipo = "";
+    this.travelbug = 0;
   }
 
   public String getNome() {
@@ -41,11 +36,11 @@ public class User {
     this.tipo = tipo;
   }
 
-  public Travelbug getTravelbug() {
+  public int getTravelbug() {
     return travelbug;
   }
 
-  public void setTravelbug(Travelbug travelbug) {
+  public void setTravelbug(int travelbug) {
     this.travelbug = travelbug;
   }
 
