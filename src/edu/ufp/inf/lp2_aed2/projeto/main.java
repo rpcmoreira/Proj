@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class main {
@@ -11,7 +12,7 @@ public class main {
         start();
     }
 
-    public static void start(){
+    public static void start() {
         SequentialSearchST<Integer, User> user_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Geocache> geo_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Item> item_st = new SequentialSearchST<>();
@@ -24,7 +25,7 @@ public class main {
 
 
         // Leitura do ficheiro input.txt
-        try{
+        try {
             int itens = 0;
 
             Scanner scan = new Scanner(new BufferedReader(new FileReader("data/input.txt")));
@@ -32,7 +33,7 @@ public class main {
             scan.nextLine();
 
             // Leitura do user
-            for(int i = 0; i < x; i++) {
+            for (int i = 0; i < x; i++) {
                 User u = new User();
 
                 String[] data = scan.nextLine().split(", ");
@@ -47,7 +48,7 @@ public class main {
             x = scan.nextInt();
             scan.nextLine();
 
-            for(int i = 0; i < x; i++){
+            for (int i = 0; i < x; i++) {
                 Regiao reg = new Regiao();
 
                 String[] data = scan.nextLine().split(", ");
@@ -55,7 +56,7 @@ public class main {
                 reg.n_caches = Integer.parseInt(data[1]);
 
                 // Leitura da Geocache
-                for(int j = 0; j < reg.n_caches; j++){
+                for (int j = 0; j < reg.n_caches; j++) {
                     Geocache geo = new Geocache();
 
                     String[] data1 = scan.nextLine().split(", ");
@@ -68,24 +69,24 @@ public class main {
                     geo.n_itens = Integer.parseInt(data1[4]);
 
                     // Leitura dos itens
-                    for(int k = 1; k <= geo.n_itens; k++){
+                    for (int k = 1; k <= geo.n_itens; k++) {
                         Item item = new Item();
 
-                        item.item = data1[4+k];
+                        item.item = data1[4 + k];
                         item.id_geo = geo.id;
                         item_st.put(itens, item);
                         itens++;
                     }
                     geo_st.put(idgeo, geo);
                 }
-                reg_st.put(i+1, reg);
+                reg_st.put(i + 1, reg);
             }
 
             // Leitura das ligacoes
             x = scan.nextInt();
             scan.nextLine();
 
-            for(int i = 0; i < x; i++){
+            for (int i = 0; i < x; i++) {
                 Ligacoes l = new Ligacoes();
 
                 String[] data = scan.nextLine().split(", ");
@@ -94,14 +95,14 @@ public class main {
                 l.distancia = Float.parseFloat(data[2]);
                 l.distancia = Integer.parseInt(data[3]);
 
-                lig_st.put(i,l);
+                lig_st.put(i, l);
             }
 
             // Leitura das travelBugs
             x = scan.nextInt();
             scan.nextLine();
 
-            for(int i = 0; i < x; i++){
+            for (int i = 0; i < x; i++) {
                 Travelbug tb = new Travelbug();
 
                 String[] data = scan.nextLine().split(", ");
@@ -110,49 +111,35 @@ public class main {
                 tb.geo_inicial = data[2];
                 tb.geo_destino = data[3];
 
-                tvb_st.put(i,tb);
+                tvb_st.put(i, tb);
             }
 
-            Scanner scan2 = new Scanner(new BufferedReader(new FileReader("data/logs.txt")));
-            x = scan2.nextInt();
-            scan2.nextLine();
+            scan = new Scanner(new BufferedReader(new FileReader("data/logs.txt")));
+            x = scan.nextInt();
+            scan.nextLine();
 
-            for(int i = 0; i < x; i++){
+            for (int i = 0; i < x; i++) {
                 Historico hist = new Historico();
 
-                String[] data = scan2.nextLine().split(", ");
+                String[] data = scan.nextLine().split(", ");
                 hist.user = data[0];
                 hist.n_visited = Integer.parseInt(data[1]);
-                for(int y = 0; y <= hist.n_visited; y++){
-                    hist.visited[y] = data[2];
+                hist.visited = new int[hist.n_visited];
+                hist.date = new Date[hist.n_visited];
+                for (int y = 0; y < hist.n_visited; y++) {
+                    hist.visited[y] = Integer.parseInt(data[2 + y]);
                 }
-                for(int y = 0; y <= hist.n_visited; y++){
-                    hist.date[y] = data[3];
+                String[] data1 = scan.nextLine().split(", ");
+                for (int y = 0; y < hist.n_visited; y++) {
+                    String[] aux = data1[y].split("-");
+                    hist.date[y] = new Date(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
                 }
                 log_st.put(i, hist);
                 System.out.println(log_st.get(i).toString());
             }
-
-
-            x = scan2.nextInt();
-            scan2.nextLine();
-
-            for(int z = 0; z < x; z++){
-                Historico hist1 = new Historico();
-
-                String[] data2 = scan2.nextLine().split(", ");
-                hist1.user = data2[0];
-                hist1.n_tb =  Integer.parseInt(data2[1]);
-                hist1.tb_start =  Integer.parseInt(data2[2]);
-                hist1.tb_end =  Integer.parseInt(data2[3]);
-
-                log_tb_st.put(z, hist1);
-            }
-
-        }catch (FileNotFoundException erro){
+        } catch (FileNotFoundException erro) {
             System.out.println(erro.toString());
         }
 
-        System.out.println(log_tb_st.get(1).toString2());
     }
 }
