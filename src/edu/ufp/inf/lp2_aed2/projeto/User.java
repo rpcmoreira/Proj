@@ -73,6 +73,12 @@ public class User {
     }
   }
 
+  public void editUser(){
+  }
+
+  public void searchUser(SequentialSearchST user, String nome) {
+  }
+
   public void logUser(int id) {
   }
 

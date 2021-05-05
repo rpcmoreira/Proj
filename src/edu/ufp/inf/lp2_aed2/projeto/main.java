@@ -9,10 +9,7 @@ import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
-        start();
-    }
 
-    public static void start() {
         SequentialSearchST<Integer, User> user_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Geocache> geo_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Item> item_st = new SequentialSearchST<>();
@@ -20,7 +17,7 @@ public class main {
         SequentialSearchST<Integer, Regiao> reg_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Travelbug> tvb_st = new SequentialSearchST<>();
 
-        SequentialSearchST<Integer, Historico> log_st = new SequentialSearchST<>();
+        BinarySearchST<Integer, Historico> log_st = new BinarySearchST<>();
 
 
 
@@ -142,9 +139,21 @@ public class main {
         }
 
         User user = new User();
-        user.addUser(2, "Patricia", "admin", user_st);
-        //user.removeUser(3, user_st);
 
-        System.out.println(user_st.get(2));
+        user.removeUser(2, user_st);
+        user.addUser(2, "Patricia", "admin", user_st);
+
+
+        Geocache geocache = new Geocache();
+
+        geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 5, geo_st);
+        //geocache.removeGeocache("geocache3", geo_st);
+        System.out.println(geo_st.get(19).toString());
+       // System.out.println(geo_st.get(3).toString());
+
+        Item it = new Item();
+
+        it.addItem("geocache4", "pa", item_st);  //not working, adicionar um item remove o que ja la estava
+        System.out.println(item_st.get(4).toString());
     }
 }

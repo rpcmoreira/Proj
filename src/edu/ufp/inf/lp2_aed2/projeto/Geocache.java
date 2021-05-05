@@ -69,10 +69,25 @@ public class Geocache {
   }
 
 
-  public void addGeocache(int id, String tipo, float cX, float cY, int n_itens, String itens) {
+  public void addGeocache(String id, String tipo, float cX, float cY, int n_itens, SequentialSearchST geo) {
+    if(geo.contains(id)){
+      System.out.println("erro");
+    }
+    else{
+      Geocache geocache = new Geocache(id,tipo,cX,cY,n_itens);
+      int idgeo = Integer.parseInt(id.replace("geocache", ""));
+      geo.put(idgeo, geocache);
+    }
   }
 
-  public void removeGeocache(int id) {
+  public void removeGeocache(String id, SequentialSearchST geo) {
+    /*int idgeo = Integer.parseInt(id.replace("geocache", ""));
+    if(geo.contains(idgeo)){
+      geo.delete(idgeo);
+    }
+    else{
+      System.out.println("Geocache Inválido!\n");
+    }*/
   }
 
   public void listarItens(int id) {

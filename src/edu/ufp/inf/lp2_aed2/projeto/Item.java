@@ -36,7 +36,15 @@ public class Item {
   public void removeItem(String id_geo, String item) {
   }
 
-  public void addItem(String id_geo, String item) {
+  public void addItem(String id_geo, String item, SequentialSearchST itens) {
+    if(itens.contains(item)){
+      System.out.println("Erro Item\n");
+    }
+    else{
+      Item novo = new Item(id_geo, item);
+      int id = Integer.parseInt(id_geo.replace("geocache", ""));
+      itens.put(id, novo);
+    }
   }
 
   @Override
