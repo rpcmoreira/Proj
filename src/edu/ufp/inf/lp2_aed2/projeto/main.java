@@ -21,7 +21,7 @@ public class main {
         SequentialSearchST<Integer, Travelbug> tvb_st = new SequentialSearchST<>();
 
         SequentialSearchST<Integer, Historico> log_st = new SequentialSearchST<>();
-        SequentialSearchST<Integer, Historico> log_tb_st = new SequentialSearchST<>();
+
 
 
         // Leitura do ficheiro input.txt
@@ -135,11 +135,16 @@ public class main {
                     hist.date[y] = new Date(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
                 }
                 log_st.put(i, hist);
-                System.out.println(log_st.get(i).toString());
+                //System.out.println(log_st.get(i).toString());
             }
         } catch (FileNotFoundException erro) {
             System.out.println(erro.toString());
         }
 
+        User user = new User();
+        user.addUser(2, "Patricia", "admin", user_st);
+        //user.removeUser(3, user_st);
+
+        System.out.println(user_st.get(2));
     }
 }
