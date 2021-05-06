@@ -51,26 +51,33 @@ public class User {
     this.travelbug = travelbug;
   }
 
-  public void listarUser(int id) {
+  public void listarUser(int id, SequentialSearchST<Integer, User> user) {
+
   }
 
-  public void addUser(int id, String nome, String tipo, SequentialSearchST user){
+  public int addUser(int id, String nome, String tipo, int n_user, SequentialSearchST<Integer, User> user){
       if(user.contains(id)){
-        System.out.println("User ID ja definido\n");
+        System.out.println("User ID ja definido!");
       }
       else{
         User new_u = new User(nome, tipo);
         user.put(id,new_u);
+        System.out.println("User " + id + " adicionado com sucesso! -> " + new_u);
+        n_user++;
       }
+    return n_user;
   }
 
-  public void removeUser(int id, SequentialSearchST user) {
+  public int removeUser(int id, int n_user, SequentialSearchST<Integer, User> user) {
     if(user.contains(id)){
       user.delete(id);
+      n_user--;
+      System.out.println("User " + id + " removido com sucesso!");
     }
     else{
-      System.out.println("User Inválido!\n");
+      System.out.println("User Inválido!");
     }
+    return n_user;
   }
 
   public void editUser(){
@@ -84,10 +91,10 @@ public class User {
 
   @Override
   public String toString() {
-    return "User{" +
+    return "User {" +
             "nome = '" + nome + '\'' +
             ", tipo = '" + tipo + '\'' +
             //", travelbug=" + travelbug +
-            '}';
+            "}";
   }
 }

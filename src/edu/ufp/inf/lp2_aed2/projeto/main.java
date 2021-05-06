@@ -8,7 +8,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class main {
+
     public static void main(String[] args) {
+        // Start
+        int n_user = 0, n_reg = 0, n_geo = 0, n_lig = 0, n_tv = 0, n_itens = 0;
 
         SequentialSearchST<Integer, User> user_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Geocache> geo_st = new SequentialSearchST<>();
@@ -19,18 +22,14 @@ public class main {
 
         BinarySearchST<Integer, Historico> log_st = new BinarySearchST<>();
 
-
-
         // Leitura do ficheiro input.txt
         try {
-            int itens = 0;
-
             Scanner scan = new Scanner(new BufferedReader(new FileReader("data/input.txt")));
-            int x = scan.nextInt();
+            n_user = scan.nextInt();
             scan.nextLine();
 
             // Leitura do user
-            for (int i = 0; i < x; i++) {
+            for (int i = 0; i < n_user; i++) {
                 User u = new User();
 
                 String[] data = scan.nextLine().split(", ");
@@ -42,18 +41,20 @@ public class main {
             }
 
             //Leitura da Regiao
-            x = scan.nextInt();
+            n_reg = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < x; i++) {
+            for (int i = 0; i < n_reg; i++) {
                 Regiao reg = new Regiao();
 
                 String[] data = scan.nextLine().split(", ");
                 reg.nome = data[0];
                 reg.n_caches = Integer.parseInt(data[1]);
 
+
                 // Leitura da Geocache
                 for (int j = 0; j < reg.n_caches; j++) {
+                    n_geo++;
                     Geocache geo = new Geocache();
 
                     String[] data1 = scan.nextLine().split(", ");
@@ -71,8 +72,8 @@ public class main {
 
                         item.item = data1[4 + k];
                         item.id_geo = geo.id;
-                        item_st.put(itens, item);
-                        itens++;
+                        item_st.put(n_itens, item);
+                        n_itens++;
                     }
                     geo_st.put(idgeo, geo);
                 }
@@ -80,10 +81,10 @@ public class main {
             }
 
             // Leitura das ligacoes
-            x = scan.nextInt();
+            n_lig = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < x; i++) {
+            for (int i = 0; i < n_lig; i++) {
                 Ligacoes l = new Ligacoes();
 
                 String[] data = scan.nextLine().split(", ");
@@ -96,10 +97,10 @@ public class main {
             }
 
             // Leitura das travelBugs
-            x = scan.nextInt();
+            n_tv = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < x; i++) {
+            for (int i = 0; i < n_tv; i++) {
                 Travelbug tb = new Travelbug();
 
                 String[] data = scan.nextLine().split(", ");
@@ -111,8 +112,9 @@ public class main {
                 tvb_st.put(i, tb);
             }
 
+            // Leitura dos logs
             scan = new Scanner(new BufferedReader(new FileReader("data/logs.txt")));
-            x = scan.nextInt();
+            int x = scan.nextInt();
             scan.nextLine();
 
             for (int i = 0; i < x; i++) {
@@ -137,23 +139,47 @@ public class main {
         } catch (FileNotFoundException erro) {
             System.out.println(erro.toString());
         }
+        // Fim da leitura dos ficheiros
 
+        // Inserir e remover
         User user = new User();
-
-        user.removeUser(2, user_st);
-        user.addUser(2, "Patricia", "admin", user_st);
-
+        n_user =  user.addUser(8, "Patricia", "admin", n_user, user_st);
+        n_user =  user.removeUser(2, n_user, user_st);
+        n_user =  user.addUser(40, "TESTE", "admin", n_user, user_st);
 
         Geocache geocache = new Geocache();
+        n_geo = geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 5, n_geo, geo_st);
+        for (int i : new int[]{1, 5, 7, 9, 12, 14, 15, 16}) {
+            String res = "geocache" + i;
+            n_geo = geocache.removeGeocache(res, n_geo, geo_st);
+        }
 
-        geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 5, geo_st);
-        //geocache.removeGeocache("geocache3", geo_st);
-        System.out.println(geo_st.get(19).toString());
-       // System.out.println(geo_st.get(3).toString());
 
-        Item it = new Item();
+        //Item it = new Item();
 
-        it.addItem("geocache4", "pa", item_st);  //not working, adicionar um item remove o que ja la estava
-        System.out.println(item_st.get(4).toString());
+        //it.addItem("geocache4", "pa", item_st);  //not working, adicionar um item remove o que ja la estava
+        //System.out.println(item_st.get(4).toString());
+
+        // Listar tudo
+        listarUsers(n_user, user_st);
+        listarGeocache(n_geo, geo_st);
+    }
+
+    public static void listarUsers(int n_users, SequentialSearchST<Integer, User> user_st) {
+        System.out.print("\n");
+        for( int i = 0; i < n_users; i++){
+            if (user_st.get(i+1) != null) System.out.println(i+1 + " " + user_st.get(i+1));
+            else n_users++;
+        }
+        System.out.print("\n");
+    }
+
+    public static void listarGeocache(int n_geo, SequentialSearchST<Integer, Geocache> geo_st) {
+        System.out.print("\n");
+        for( int i = 0; i < n_geo; i++){
+            if (geo_st.get(i+1) != null) System.out.println(i+1 + " " + geo_st.get(i+1));
+            else n_geo++;
+        }
+        System.out.print("\n");
     }
 }

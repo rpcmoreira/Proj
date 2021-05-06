@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2_aed2.projeto;
 import edu.princeton.cs.algs4.*;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.lang.String;
 
@@ -69,25 +70,31 @@ public class Geocache {
   }
 
 
-  public void addGeocache(String id, String tipo, float cX, float cY, int n_itens, SequentialSearchST geo) {
-    if(geo.contains(id)){
+  public int addGeocache(String id, String tipo, float cX, float cY, int n_itens,  int n_geo, SequentialSearchST<Integer, Geocache> geo) {
+    int idgeo = Integer.parseInt(id.replace("geocache", ""));
+    if(geo.contains(idgeo)){
       System.out.println("erro");
     }
     else{
       Geocache geocache = new Geocache(id,tipo,cX,cY,n_itens);
-      int idgeo = Integer.parseInt(id.replace("geocache", ""));
       geo.put(idgeo, geocache);
+      System.out.println("Geocache " + id + " adicionada com sucesso! -> " + geocache);
+      n_geo++;
     }
+    return n_geo;
   }
 
-  public void removeGeocache(String id, SequentialSearchST geo) {
-    /*int idgeo = Integer.parseInt(id.replace("geocache", ""));
+  public int removeGeocache(String id, int n_geo, SequentialSearchST<Integer, Geocache> geo) {
+    int idgeo = Integer.parseInt(id.replace("geocache", ""));
     if(geo.contains(idgeo)){
       geo.delete(idgeo);
+      System.out.println("Geocache " + id + " removida com sucesso!");
+      n_geo--;
     }
     else{
-      System.out.println("Geocache Inválido!\n");
-    }*/
+      System.out.println("Geocache Inválido!");
+    }
+    return n_geo;
   }
 
   public void listarItens(int id) {
