@@ -69,4 +69,13 @@ public class Ligacoes {
   public void removeLigacao(String id_1, String id_2) {
   }
 
+  @Override
+  public String toString() {
+    return "Ligacoes{" +
+            "id_1='" + id_1 + '\'' +
+            ", id_2='" + id_2 + '\'' +
+            ", distancia=" + distancia +
+            ", tempo=" + tempo +
+            '}';
+  }
 }

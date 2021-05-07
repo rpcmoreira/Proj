@@ -17,7 +17,7 @@ public class Item {
     this.item = "";
   }
 
-  public String getId_geo() {
+  public String getId_geo(int i) {
     return id_geo;
   }
 
@@ -36,8 +36,8 @@ public class Item {
   public void removeItem(String id_geo, String item) {
   }
 
-  public void addItem(String id_geo, String item, SequentialSearchST itens) {
-    if(itens.contains(item)){
+  public void addItem(int id_item, String item, SequentialSearchST<Integer, Item> itens) {
+    if(itens.contains(id_item)){
       System.out.println("Erro Item\n");
     }
     else{
@@ -46,6 +46,7 @@ public class Item {
       itens.put(id, novo);
     }
   }
+
 
   @Override
   public String toString() {

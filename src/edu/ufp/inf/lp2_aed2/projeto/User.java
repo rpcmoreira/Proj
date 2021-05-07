@@ -51,10 +51,6 @@ public class User {
     this.travelbug = travelbug;
   }
 
-  public void listarUser(int id, SequentialSearchST<Integer, User> user) {
-
-  }
-
   public int addUser(int id, String nome, String tipo, int n_user, SequentialSearchST<Integer, User> user){
       if(user.contains(id)){
         System.out.println("User ID ja definido!");
@@ -83,10 +79,12 @@ public class User {
   public void editUser(){
   }
 
-  public void searchUser(SequentialSearchST user, String nome) {
+  public void searchUser(SequentialSearchST<Integer, User> user, String nome){
+
   }
 
   public void logUser(int id) {
+
   }
 
   @Override

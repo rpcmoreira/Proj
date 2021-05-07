@@ -72,10 +72,10 @@ public class main {
 
                         item.item = data1[4 + k];
                         item.id_geo = geo.id;
-                        item_st.put(n_itens, item);
+                        item_st.put(n_itens+1, item);
                         n_itens++;
                     }
-                    geo_st.put(idgeo, geo);
+                    geo_st.put(idgeo+1, geo);
                 }
                 reg_st.put(i + 1, reg);
             }
@@ -91,9 +91,9 @@ public class main {
                 l.id_1 = data[0];
                 l.id_2 = data[1];
                 l.distancia = Float.parseFloat(data[2]);
-                l.distancia = Integer.parseInt(data[3]);
+                l.tempo = Integer.parseInt(data[3]);
 
-                lig_st.put(i, l);
+                lig_st.put(i+1, l);
             }
 
             // Leitura das travelBugs
@@ -109,7 +109,7 @@ public class main {
                 tb.geo_inicial = data[2];
                 tb.geo_destino = data[3];
 
-                tvb_st.put(i, tb);
+                tvb_st.put(i+1, tb);
             }
 
             // Leitura dos logs
@@ -154,15 +154,33 @@ public class main {
             n_geo = geocache.removeGeocache(res, n_geo, geo_st);
         }
 
-
         //Item it = new Item();
 
         //it.addItem("geocache4", "pa", item_st);  //not working, adicionar um item remove o que ja la estava
         //System.out.println(item_st.get(4).toString());
 
         // Listar tudo
-        listarUsers(n_user, user_st);
-        listarGeocache(n_geo, geo_st);
+        //listarUsers(n_user, user_st);
+        //listarGeocache(n_geo, geo_st, item_st);
+        //listarItens(n_itens, item_st);
+        //listarTravelbug(n_tv, tvb_st);
+        listarRegiao(n_reg, reg_st, geo_st, item_st);
+        //listarLigacoes(n_lig, lig_st);
+    }
+
+    public static boolean geoContainsItem(int id_item, String id_geo, SequentialSearchST<Integer, Item> itens){
+        if(itens.contains(id_item)){
+            return (itens.get(id_item).id_geo.equals(id_geo));
+        }
+        return false;
+    }
+
+    public static boolean regContainsCache(String id_geo, String regiao, SequentialSearchST<Integer, Geocache> geo){
+        int n_geo = Integer.parseInt(id_geo.replace("geocache", ""));
+        if(geo.contains(n_geo)){
+            return (geo.get(n_geo).id.equals(regiao));
+        }
+        return false;
     }
 
     public static void listarUsers(int n_users, SequentialSearchST<Integer, User> user_st) {
@@ -171,15 +189,81 @@ public class main {
             if (user_st.get(i+1) != null) System.out.println(i+1 + " " + user_st.get(i+1));
             else n_users++;
         }
-        System.out.print("\n");
+        //System.out.print("\n");
     }
 
-    public static void listarGeocache(int n_geo, SequentialSearchST<Integer, Geocache> geo_st) {
+    public static void listarGeocache(int n_geo, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
         System.out.print("\n");
         for( int i = 0; i < n_geo; i++){
-            if (geo_st.get(i+1) != null) System.out.println(i+1 + " " + geo_st.get(i+1));
+            if (geo_st.get(i+1) != null){
+                System.out.println(i+1 + " " + geo_st.get(i+1));
+                int n_itens = 0;
+                if(geo_st.get(i+1).n_itens > 0){ System.out.print("\tItens{");
+                for(int id_item = 1; n_itens < geo_st.get(i+1).getN_itens(); id_item++){
+                    if(geoContainsItem(id_item, geo_st.get(i+1).id, item_st)){
+                        System.out.print(" " + item_st.get(id_item).item);
+                        n_itens++;
+                        if (n_itens + 1 <= geo_st.get(i+1).getN_itens()) System.out.print(",");
+                    }
+                }
+                    System.out.print("}\n");
+                }
+            }
             else n_geo++;
         }
-        System.out.print("\n");
+        //System.out.print("\n");
     }
+
+    public static void listarLigacoes(int n_lig, SequentialSearchST<Integer, Ligacoes> lig_st){
+        System.out.println("\n");
+        for(int i = 0; i < n_lig; i++){
+            if(lig_st.get(i+1) != null) System.out.println(i+1 + " " + lig_st.get(i+1));
+            else n_lig++;
+        }
+        //System.out.println("\n");
+    }
+
+    public static void listarItens(int n_itens, SequentialSearchST<Integer, Item> item_st){
+        System.out.println("\n");
+        for(int i = 0; i < n_itens; i++){
+            if(item_st.get(i+1) != null) System.out.println(i+1 + " " + item_st.get(i+1));
+            else n_itens++;
+        }
+        //System.out.println("\n");
+    }
+
+    public static void listarTravelbug(int n_tv, SequentialSearchST<Integer, Travelbug> tvb_st){
+        System.out.println("\n");
+        for(int i = 0; i < n_tv; i++){
+            if(tvb_st.get(i+1) != null) System.out.println(i+1 + " " + tvb_st.get(i+1));
+            else n_tv++;
+        }
+        //System.out.println("\n");
+    }
+
+    public static void listarRegiao(int n_reg, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st) {
+        System.out.print("\n");
+
+
+        /*for( int i = 0; i < reg_st.get(); i++){
+            if(regContainsCache(geo_st.get().id, reg_st.get().nome))
+            if (geo_st.get(i+1) != null){
+                System.out.println(i+1 + " " + geo_st.get(i+1));
+                int n_itens = 0;
+                if(geo_st.get(i+1).n_itens > 0){ System.out.print("\tItens{");
+
+                    for(int id_item = 1; n_itens < geo_st.get(i+1).getN_itens(); id_item++){
+                        if(geoContainsItem(id_item, geo_st.get(i+1).id, item_st)){
+                            System.out.print(" " + item_st.get(id_item).item);
+                            n_itens++;
+                            if (n_itens + 1 <= geo_st.get(i+1).getN_itens()) System.out.print(",");
+                        }
+                    }
+                    System.out.print("}\n");
+                }
+            }
+            else n_geo++;
+        }                           Falta definir a regiao na cache,    falta acabar a listagem da regiao*/
+    }
+
 }
