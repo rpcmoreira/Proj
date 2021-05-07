@@ -37,7 +37,7 @@ public class Regiao {
   public void listarCaches(Geocache g) {
   }
 
-  public int addRegiao(int id, String nome, int n_reg, SequentialSearchST<Integer,Regiao> reg_st) {
+  public void addRegiao(int id, String nome, int[] sizes, SequentialSearchST<Integer,Regiao> reg_st) {
     if(reg_st.contains(id)){
       System.out.println("Regiao ja definida");
     }
@@ -45,25 +45,29 @@ public class Regiao {
       Regiao new_reg = new Regiao(nome, 0);
       reg_st.put(id, new_reg);
       System.out.println("Regiao " + id + " adicionado com sucesso! -> " + new_reg);
-      n_reg++;
+      sizes[1]++;
     }
-    return n_reg;
   }
 
-  public int removeRegiao(int id, int n_reg, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
-    if(reg_st.contains(id)){
-      for(int i = 1; i <= reg_st.get(id).n_caches; i++){
-        if(geo_st.get(i) != null && geo_st.get(i).id_reg == id){
-            geo_st.get(i).removeGeocache("geocache" + i, reg_st.get(i).n_caches, geo_st, reg_st);
-            reg_st.delete(id);
-            n_reg--;
+  public void removeRegiao(int id, int[] sizes, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
+      if(reg_st.contains(id)){
+
+      if(reg_st.get(id).n_caches > 0){
+        int n_geo = reg_st.get(id).n_caches;
+        for(int i = 1; i <= n_geo; i++){
+          if(geo_st.get(i) != null && geo_st.get(i).id_reg == id){
+            geo_st.get(i).removeGeocache("geocache"+i,sizes,geo_st,reg_st,item_st);
+          }else n_geo++;
         }
       }
+      reg_st.delete(id);
+      System.out.println("Regiao " + id + " removida com sucesso!");
+      sizes[1]--;
     }
     else{
-      System.out.println("Regiao nao encontrada");
+      System.out.println("Regiao Inválida!");
     }
-    return n_reg;
+
   }
 
   @Override

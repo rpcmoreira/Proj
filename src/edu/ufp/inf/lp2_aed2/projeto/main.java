@@ -12,7 +12,9 @@ public class main {
 
     public static void main(String[] args) {
         // Start
-        int n_user = 0, n_reg = 0, n_geo = 0, n_lig = 0, n_tv = 0, n_itens = 0;
+        //int n_user = 0, n_reg = 0, n_geo = 0,n_itens = 0, n_tv = 0, n_lig = 0;
+        int[] sizes = new int[6];
+        for(int i = 0; i < 6; i++) sizes[i] = 0;
 
         SequentialSearchST<Integer, User> user_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Geocache> geo_st = new SequentialSearchST<>();
@@ -26,11 +28,11 @@ public class main {
         // Leitura do ficheiro input.txt
         try {
             Scanner scan = new Scanner(new BufferedReader(new FileReader("data/input.txt")));
-            n_user = scan.nextInt();
+            sizes[0] = scan.nextInt();
             scan.nextLine();
 
             // Leitura do user
-            for (int i = 0; i < n_user; i++) {
+            for (int i = 0; i < sizes[0]; i++) {
                 User u = new User();
 
                 String[] data = scan.nextLine().split(", ");
@@ -42,10 +44,10 @@ public class main {
             }
 
             //Leitura da Regiao
-            n_reg = scan.nextInt();
+            sizes[1] = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < n_reg; i++) {
+            for (int i = 0; i < sizes[1]; i++) {
                 Regiao reg = new Regiao();
 
                 String[] data = scan.nextLine().split(", ");
@@ -55,7 +57,7 @@ public class main {
 
                 // Leitura da Geocache
                 for (int j = 0; j < reg.n_caches; j++) {
-                    n_geo++;
+                    sizes[2]++;
                     Geocache geo = new Geocache();
 
                     String[] data1 = scan.nextLine().split(", ");
@@ -74,8 +76,8 @@ public class main {
 
                         item.item = data1[4 + k];
                         item.id_geo = geo.id;
-                        item_st.put(n_itens+1, item);
-                        n_itens++;
+                        item_st.put(sizes[3]+1, item);
+                        sizes[3]++;
                     }
                     geo_st.put(idgeo, geo);
                 }
@@ -83,10 +85,10 @@ public class main {
             }
 
             // Leitura das ligacoes
-            n_lig = scan.nextInt();
+            sizes[5] = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < n_lig; i++) {
+            for (int i = 0; i < sizes[5]; i++) {
                 Ligacoes l = new Ligacoes();
 
                 String[] data = scan.nextLine().split(", ");
@@ -99,10 +101,10 @@ public class main {
             }
 
             // Leitura das travelBugs
-            n_tv = scan.nextInt();
+            sizes[4] = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < n_tv; i++) {
+            for (int i = 0; i < sizes[4]; i++) {
                 Travelbug tb = new Travelbug();
 
                 String[] data = scan.nextLine().split(", ");
@@ -143,41 +145,44 @@ public class main {
         }
         // Fim da leitura dos ficheiros
 
-        // Inserir e remover
-        User user = new User();
-       //n_user =  user.addUser(8, "Patricia", "admin", n_user, user_st);
-       //n_user =  user.removeUser(2, n_user, user_st);
-       //n_user =  user.addUser(40, "TESTE", "admin", n_user, user_st);
+        // TESTES - INSERIR E REMOVER
+        // USERS
+        /*User user = new User();
+        user.addUser(8, "Patricia", "admin", sizes, user_st);
+        user.removeUser(2, sizes, user_st);
+        user.addUser(40, "Joao Paulo", "basic", sizes, user_st);*/
 
-        Geocache geocache = new Geocache();
-       // n_geo = geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 1, n_geo, geo_st, reg_st);
-       // for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
-       //     String res = "geocache" + i;
-       //     n_geo = geocache.removeGeocache(res, n_geo, geo_st, reg_st);
-       // }
-       // n_geo = geocache.addGeocache("geocache20", "basic", -2.07543f, 43.87543f, 3, n_geo, geo_st, reg_st);
-
+        // REGIAO
         Regiao regiao = new Regiao();
-        n_reg = regiao.addRegiao(2, "Erro",n_reg, reg_st);
-        n_reg = regiao.addRegiao(4, "Reg 4",n_reg, reg_st);
-        n_reg = regiao.removeRegiao(2, n_reg, reg_st, geo_st, item_st);
+        regiao.addRegiao(4, "TesteReg", sizes, reg_st);
+        regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);
 
+        // GEOCACHE
+        Geocache geocache = new Geocache();
+        geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
+        for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
+            String res = "geocache" + i;
+            geocache.removeGeocache(res, sizes, geo_st, reg_st, item_st);
+        }
 
-        Ligacoes ligacao = new Ligacoes();
-        n_lig = ligacao.addLigacao("geocache2", "geocache14", 5.6f, 76, n_lig, lig_st);
-        n_lig = ligacao.removeLigacao("geocache17", "geocache18", n_lig, lig_st);
-
+        // ITEM
         Item item = new Item();
-        n_itens = item.addItem(19,"geocache3", "mp3", n_itens, item_st, geo_st);
-        n_itens = item.removeItem(14, n_itens, item_st, geo_st);
+        item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
+        item.addItem(23,"geocache19", "mp4", sizes, item_st, geo_st);
+        item.removeItem(14, sizes, item_st, geo_st);
+
+        // LIGACOES
+        /*Ligacoes ligacao = new Ligacoes();
+        ligacao.addLigacao("geocache2", "geocache19", 599.6f, 4573, sizes, lig_st);
+        ligacao.removeLigacao("geocache17", "geocache18", sizes, lig_st);*/
 
         // Listar tudo
-        //listarUsers(n_user, user_st);
-        //listarGeocache(n_geo, geo_st, item_st);
-        listarItens(n_itens, item_st);
-        //listarTravelbug(n_tv, tvb_st);
-        //listarRegiao(n_reg, reg_st, geo_st, item_st);
-        //listarLigacoes(n_lig, lig_st);
+        //listarUsers(sizes, user_st);
+        listarRegiao(sizes, reg_st, geo_st, item_st);
+        //listarGeocache(sizes, geo_st, item_st);
+        //listarItens(sizes, item_st);
+        //listarTravelbug(sizes, tvb_st);
+        //listarLigacoes(sizes, lig_st);
     }
 
     public static boolean geoContainsItem(int id_item, String id_geo, SequentialSearchST<Integer, Item> itens){
@@ -195,7 +200,8 @@ public class main {
         return false;
     }
 
-    public static void listarUsers(int n_users, SequentialSearchST<Integer, User> user_st) {
+    public static void listarUsers(int[] sizes, SequentialSearchST<Integer, User> user_st) {
+        int n_users = sizes[0];
         System.out.print("\n");
         for( int i = 0; i < n_users; i++){
             if (user_st.get(i+1) != null) System.out.println(i+1 + " " + user_st.get(i+1));
@@ -204,7 +210,8 @@ public class main {
         //System.out.print("\n");
     }
 
-    public static void listarGeocache(int n_geo, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
+    public static void listarGeocache(int[] sizes, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
+        int n_geo = sizes[2];
         System.out.print("\n");
         for( int i = 0; i < n_geo; i++){
             if (geo_st.get(i+1) != null){
@@ -226,7 +233,8 @@ public class main {
         //System.out.print("\n");
     }
 
-    public static void listarLigacoes(int n_lig, SequentialSearchST<Integer, Ligacoes> lig_st){
+    public static void listarLigacoes(int[] sizes, SequentialSearchST<Integer, Ligacoes> lig_st){
+        int n_lig = sizes[5];
         System.out.println("\n");
         for(int i = 0; i < n_lig; i++){
             if(lig_st.get(i+1) != null) System.out.println(i+1 + " " + lig_st.get(i+1));
@@ -235,7 +243,8 @@ public class main {
         //System.out.println("\n");
     }
 
-    public static void listarItens(int n_itens, SequentialSearchST<Integer, Item> item_st){
+    public static void listarItens(int[] sizes, SequentialSearchST<Integer, Item> item_st){
+        int n_itens = sizes[3];
         System.out.println("\n");
         for(int i = 0; i < n_itens; i++){
             if(item_st.get(i+1) != null) System.out.println(i+1 + " " + item_st.get(i+1));
@@ -244,7 +253,8 @@ public class main {
         //System.out.println("\n");
     }
 
-    public static void listarTravelbug(int n_tv, SequentialSearchST<Integer, Travelbug> tvb_st){
+    public static void listarTravelbug(int[] sizes, SequentialSearchST<Integer, Travelbug> tvb_st){
+        int n_tv = sizes[4];
         System.out.println("\n");
         for(int i = 0; i < n_tv; i++){
             if(tvb_st.get(i+1) != null) System.out.println(i+1 + " " + tvb_st.get(i+1));
@@ -253,13 +263,15 @@ public class main {
         //System.out.println("\n");
     }
 
-    public static void listarRegiao(int n_reg, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st) {
+    public static void listarRegiao(int[] sizes, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st) {
+        int n_reg = sizes[1];
         System.out.print("\n");
-        for (int j = 0; j < n_reg; j++) {
-            System.out.println(reg_st.get(j + 1).nome.toUpperCase());
-            int n_caches = reg_st.get(j + 1).n_caches;
-            for (int i = 1; i <= n_caches; i++) {
-                    if (geo_st.get(i) != null && regContainsCache(geo_st.get(i).id, j + 1, geo_st)) {
+        for (int j = 1; j <= n_reg; j++) {
+            if (reg_st.get(j) != null) {
+                System.out.println(reg_st.get(j).nome.toUpperCase());
+                int n_caches = reg_st.get(j).n_caches;
+                for (int i = 1; i <= n_caches; i++) {
+                    if (geo_st.get(i) != null && regContainsCache(geo_st.get(i).id, j, geo_st)) {
                         System.out.println("\t" + i + " " + geo_st.get(i));
                         int n_itens = 0;
                         if (geo_st.get(i).n_itens > 0) {
@@ -274,8 +286,9 @@ public class main {
                             System.out.print("}\n");
                         }
                     } else n_caches++;
-            }
-            System.out.print("\n");
+                }
+                System.out.print("\n");
+            } else n_reg++;
         }
     }
 }

@@ -73,7 +73,7 @@ public class Geocache {
   }
 
 
-  public int addGeocache(String id, String tipo, float cX, float cY, int id_reg,  int n_geo, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg) {
+  public void addGeocache(String id, String tipo, float cX, float cY, int id_reg,  int[] sizes, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg) {
     int idgeo = Integer.parseInt(id.replace("geocache", ""));
     if(geo.contains(idgeo)){
       System.out.println("Erro ao adicionar Geocache!");
@@ -83,26 +83,32 @@ public class Geocache {
       Geocache geocache = new Geocache(id,tipo,cX,cY,0,id_reg);
       geo.put(idgeo, geocache);
       System.out.println("Geocache " + id + " adicionada com sucesso! -> " + geocache);
-      n_geo++;
+      sizes[2]++;
     }
-    return n_geo;
   }
 
-  public int removeGeocache(String id, int n_geo, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg) {
+  public void removeGeocache(String id, int[] sizes, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg,SequentialSearchST<Integer, Item> item) {
     int idgeo = Integer.parseInt(id.replace("geocache", ""));
+
     if(geo.contains(idgeo)){
+
+      if(geo.get(idgeo).n_itens > 0){
+        int n_itens = geo.get(idgeo).n_itens;
+        for(int i = 1; i <= n_itens; i++){
+          if(item.get(i) != null && item.get(i).id_geo.equals(id)){
+            item.get(i).removeItem(i,sizes,item,geo);
+          }else n_itens++;
+        }
+      }
+
       reg.get(geo.get(idgeo).id_reg).n_caches--;
       geo.delete(idgeo);
       System.out.println("Geocache " + id + " removida com sucesso!");
-      n_geo--;
+      sizes[2]--;
     }
     else{
       System.out.println("Geocache Inválido!");
     }
-    return n_geo;
-  }
-
-  public void listarItens(int id) {
   }
 
   @Override

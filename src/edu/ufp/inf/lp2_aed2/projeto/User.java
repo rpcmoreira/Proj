@@ -51,7 +51,7 @@ public class User {
     this.travelbug = travelbug;
   }
 
-  public int addUser(int id, String nome, String tipo, int n_user, SequentialSearchST<Integer, User> user){
+  public void addUser(int id, String nome, String tipo, int[] sizes, SequentialSearchST<Integer, User> user){
       if(user.contains(id)){
         System.out.println("User ID ja definido!");
       }
@@ -59,21 +59,19 @@ public class User {
         User new_u = new User(nome, tipo);
         user.put(id,new_u);
         System.out.println("User " + id + " adicionado com sucesso! -> " + new_u);
-        n_user++;
+        sizes[0]++;
       }
-    return n_user;
   }
 
-  public int removeUser(int id, int n_user, SequentialSearchST<Integer, User> user) {
+  public void removeUser(int id, int[] sizes, SequentialSearchST<Integer, User> user) {
     if(user.contains(id)){
       user.delete(id);
-      n_user--;
+      sizes[0]--;
       System.out.println("User " + id + " removido com sucesso!");
     }
     else{
       System.out.println("User Inválido!");
     }
-    return n_user;
   }
 
   public void editUser(){

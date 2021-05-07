@@ -64,31 +64,29 @@ public class Ligacoes {
   public void listarligacoes(String id_1) {
   }
 
-  public int addLigacao(String id_1, String id_2, float distancia, int tempo, int n_lig, SequentialSearchST<Integer,Ligacoes> lig_st) {
-    for(int i = 1; i <= n_lig; i++){
+  public void addLigacao(String id_1, String id_2, float distancia, int tempo, int[] sizes, SequentialSearchST<Integer,Ligacoes> lig_st) {
+    for(int i = 1; i <= sizes[5]; i++){
       if(lig_st.get(i).id_1.equals(id_1) && lig_st.get(i).id_2.equals(id_2)){
         System.out.println("Ligacao ja existe!");
-        return n_lig;
+        return;
       }
     }
-    n_lig++;
+    sizes[5]++;
     Ligacoes ligacao = new Ligacoes(id_1, id_2, distancia, tempo);
-    lig_st.put(n_lig, ligacao);
+    lig_st.put(sizes[5], ligacao);
     System.out.println("Ligacao entre " + id_1 + "e " + id_2 + " adicionada com sucesso! -> " + ligacao);
-    return n_lig;
   }
 
-  public int removeLigacao(String id_1, String id_2,int n_lig, SequentialSearchST<Integer,Ligacoes> lig_st) {
-    for(int i = 1; i <= n_lig; i++) {
+  public void removeLigacao(String id_1, String id_2,int[] sizes, SequentialSearchST<Integer,Ligacoes> lig_st) {
+    for(int i = 1; i <= sizes[5]; i++) {
       if (lig_st.get(i).id_1.equals(id_1) && lig_st.get(i).id_2.equals(id_2)) {
         lig_st.delete(i);
         System.out.println("Ligacao " + id_1 + " - " + id_2 + " removida!");
-        n_lig--;
-        return n_lig;
+        sizes[5]--;
+        return;
       }
     }
     System.out.println("Ligacao nao existe!");
-    return n_lig;
   }
 
   @Override

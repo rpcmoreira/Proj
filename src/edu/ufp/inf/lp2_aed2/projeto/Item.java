@@ -33,21 +33,19 @@ public class Item {
     this.item = item;
   }
 
-  public int removeItem(int id, int n_itens,  SequentialSearchST<Integer, Item> itens, SequentialSearchST<Integer, Geocache> geocache) {
+  public void removeItem(int id, int[] sizes,  SequentialSearchST<Integer, Item> itens, SequentialSearchST<Integer, Geocache> geocache) {
     if (itens.contains(id)){
       int n_geo = Integer.parseInt(itens.get(id).id_geo.replace("geocache", ""));
       itens.delete(id);
-      n_itens--;
+      sizes[3]--;
       geocache.get(n_geo).n_itens--;
-      return n_itens;
     }
     else{
-      System.out.println("Nao Existe tal item!");
-      return n_itens;
+      System.out.println("Item nao existe!");
     }
   }
 
-  public int addItem(int id, String id_geo, String item, int n_itens, SequentialSearchST<Integer, Item> itens, SequentialSearchST<Integer, Geocache> geocache){
+  public void addItem(int id, String id_geo, String item, int[] sizes, SequentialSearchST<Integer, Item> itens, SequentialSearchST<Integer, Geocache> geocache){
     if(itens.contains(id)){
       System.out.println("Item ja presente\n");
     }
@@ -56,11 +54,10 @@ public class Item {
       if(geocache.contains(n_geo)){
         Item novo = new Item(id_geo, item);
         itens.put(id, novo);
-        n_itens++;
+        sizes[3]++;
         geocache.get(n_geo).n_itens++;
       }
     }
-    return n_itens;
   }
 
 
