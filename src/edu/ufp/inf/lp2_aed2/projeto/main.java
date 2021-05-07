@@ -145,29 +145,38 @@ public class main {
 
         // Inserir e remover
         User user = new User();
-        n_user =  user.addUser(8, "Patricia", "admin", n_user, user_st);
-        n_user =  user.removeUser(2, n_user, user_st);
-        n_user =  user.addUser(40, "TESTE", "admin", n_user, user_st);
+       //n_user =  user.addUser(8, "Patricia", "admin", n_user, user_st);
+       //n_user =  user.removeUser(2, n_user, user_st);
+       //n_user =  user.addUser(40, "TESTE", "admin", n_user, user_st);
 
         Geocache geocache = new Geocache();
-        n_geo = geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 1, n_geo, geo_st, reg_st);
-        for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
-            String res = "geocache" + i;
-            n_geo = geocache.removeGeocache(res, n_geo, geo_st, reg_st);
-        }
-        n_geo = geocache.addGeocache("geocache20", "basic", -2.07543f, 43.87543f, 3, n_geo, geo_st, reg_st);
+       // n_geo = geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 1, n_geo, geo_st, reg_st);
+       // for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
+       //     String res = "geocache" + i;
+       //     n_geo = geocache.removeGeocache(res, n_geo, geo_st, reg_st);
+       // }
+       // n_geo = geocache.addGeocache("geocache20", "basic", -2.07543f, 43.87543f, 3, n_geo, geo_st, reg_st);
 
-        //Item it = new Item();
+        Regiao regiao = new Regiao();
+        n_reg = regiao.addRegiao(2, "Erro",n_reg, reg_st);
+        n_reg = regiao.addRegiao(4, "Reg 4",n_reg, reg_st);
+        n_reg = regiao.removeRegiao(2, n_reg, reg_st, geo_st, item_st);
 
-        //it.addItem("geocache4", "pa", item_st);  //not working, adicionar um item remove o que ja la estava
-        //System.out.println(item_st.get(4).toString());
+
+        Ligacoes ligacao = new Ligacoes();
+        n_lig = ligacao.addLigacao("geocache2", "geocache14", 5.6f, 76, n_lig, lig_st);
+        n_lig = ligacao.removeLigacao("geocache17", "geocache18", n_lig, lig_st);
+
+        Item item = new Item();
+        n_itens = item.addItem(19,"geocache3", "mp3", n_itens, item_st, geo_st);
+        n_itens = item.removeItem(14, n_itens, item_st, geo_st);
 
         // Listar tudo
         //listarUsers(n_user, user_st);
         //listarGeocache(n_geo, geo_st, item_st);
-        //listarItens(n_itens, item_st);
+        listarItens(n_itens, item_st);
         //listarTravelbug(n_tv, tvb_st);
-        listarRegiao(n_reg, reg_st, geo_st, item_st);
+        //listarRegiao(n_reg, reg_st, geo_st, item_st);
         //listarLigacoes(n_lig, lig_st);
     }
 
