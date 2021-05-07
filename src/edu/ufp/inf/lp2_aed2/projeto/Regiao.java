@@ -8,18 +8,15 @@ public class Regiao {
 
   public String nome;
   public int n_caches;
-  public ArrayList<Geocache>   geocache;
 
   public Regiao(String nome, int n_caches, ArrayList<Geocache> geocache) {
     this.nome = nome;
     this.n_caches = n_caches;
-    this.geocache = geocache;
   }
 
   public Regiao() {
     this.nome = "";
     this.n_caches = 0;
-    this.geocache = new ArrayList<Geocache>();
   }
 
   public String getNome() {
@@ -36,14 +33,6 @@ public class Regiao {
 
   public void setN_caches(int n_caches) {
     this.n_caches = n_caches;
-  }
-
-  public ArrayList<Geocache> getGeocache() {
-    return geocache;
-  }
-
-  public void setGeocache(ArrayList<Geocache> geocache) {
-    this.geocache = geocache;
   }
 
   public void listarCaches(Geocache g) {

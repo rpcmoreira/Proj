@@ -12,13 +12,15 @@ public class Geocache {
   public float coordenadasX;
   public float coordenadasY;
   public int n_itens;
+  public int id_reg;
 
-  public Geocache(String id, String tipo, float coordenadasX, float coordenadasY, int n_itens) {
+  public Geocache(String id, String tipo, float coordenadasX, float coordenadasY, int n_itens, int id_reg) {
     this.id = id;
     this.tipo = tipo;
     this.coordenadasX = coordenadasX;
     this.coordenadasY = coordenadasY;
     this.n_itens = n_itens;
+    this.id_reg = id_reg;
   }
 
   public Geocache() {
@@ -27,6 +29,7 @@ public class Geocache {
     this.coordenadasX = 0.0f;
     this.coordenadasY = 0.0f;
     this.n_itens = 0;
+    this.id_reg = 0;
   }
 
   public String getId() {
@@ -70,13 +73,14 @@ public class Geocache {
   }
 
 
-  public int addGeocache(String id, String tipo, float cX, float cY, int n_itens,  int n_geo, SequentialSearchST<Integer, Geocache> geo) {
+  public int addGeocache(String id, String tipo, float cX, float cY, int id_reg,  int n_geo, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg) {
     int idgeo = Integer.parseInt(id.replace("geocache", ""));
     if(geo.contains(idgeo)){
-      System.out.println("erro");
+      System.out.println("Erro ao adicionar Geocache!");
     }
     else{
-      Geocache geocache = new Geocache(id,tipo,cX,cY,n_itens);
+      reg.get(id_reg).n_caches++;
+      Geocache geocache = new Geocache(id,tipo,cX,cY,0,id_reg);
       geo.put(idgeo, geocache);
       System.out.println("Geocache " + id + " adicionada com sucesso! -> " + geocache);
       n_geo++;
@@ -84,9 +88,10 @@ public class Geocache {
     return n_geo;
   }
 
-  public int removeGeocache(String id, int n_geo, SequentialSearchST<Integer, Geocache> geo) {
+  public int removeGeocache(String id, int n_geo, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg) {
     int idgeo = Integer.parseInt(id.replace("geocache", ""));
     if(geo.contains(idgeo)){
+      reg.get(geo.get(idgeo).id_reg).n_caches--;
       geo.delete(idgeo);
       System.out.println("Geocache " + id + " removida com sucesso!");
       n_geo--;
@@ -107,6 +112,7 @@ public class Geocache {
             ", tipo='" + tipo + '\'' +
             ", coordenadasX=" + coordenadasX +
             ", coordenadasY=" + coordenadasY +
+            ", Regiao=" + id_reg +
             ", n_itens=" + n_itens +
             '}';
   }

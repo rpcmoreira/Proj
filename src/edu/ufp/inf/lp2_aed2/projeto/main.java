@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class main {
@@ -20,7 +21,7 @@ public class main {
         SequentialSearchST<Integer, Regiao> reg_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Travelbug> tvb_st = new SequentialSearchST<>();
 
-        BinarySearchST<Integer, Historico> log_st = new BinarySearchST<>();
+        RedBlackBST<Integer, Historico> log_st = new RedBlackBST<>();
 
         // Leitura do ficheiro input.txt
         try {
@@ -65,6 +66,7 @@ public class main {
                     geo.coordenadasX = Float.parseFloat(data1[2]);
                     geo.coordenadasY = Float.parseFloat(data1[3]);
                     geo.n_itens = Integer.parseInt(data1[4]);
+                    geo.id_reg = i+1;
 
                     // Leitura dos itens
                     for (int k = 1; k <= geo.n_itens; k++) {
@@ -75,9 +77,9 @@ public class main {
                         item_st.put(n_itens+1, item);
                         n_itens++;
                     }
-                    geo_st.put(idgeo+1, geo);
+                    geo_st.put(idgeo, geo);
                 }
-                reg_st.put(i + 1, reg);
+                reg_st.put(i+1, reg);
             }
 
             // Leitura das ligacoes
@@ -148,11 +150,12 @@ public class main {
         n_user =  user.addUser(40, "TESTE", "admin", n_user, user_st);
 
         Geocache geocache = new Geocache();
-        n_geo = geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 5, n_geo, geo_st);
-        for (int i : new int[]{1, 5, 7, 9, 12, 14, 15, 16}) {
+        n_geo = geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 1, n_geo, geo_st, reg_st);
+        for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
             String res = "geocache" + i;
-            n_geo = geocache.removeGeocache(res, n_geo, geo_st);
+            n_geo = geocache.removeGeocache(res, n_geo, geo_st, reg_st);
         }
+        n_geo = geocache.addGeocache("geocache20", "basic", -2.07543f, 43.87543f, 3, n_geo, geo_st, reg_st);
 
         //Item it = new Item();
 
@@ -175,10 +178,10 @@ public class main {
         return false;
     }
 
-    public static boolean regContainsCache(String id_geo, String regiao, SequentialSearchST<Integer, Geocache> geo){
+    public static boolean regContainsCache(String id_geo, int regiao, SequentialSearchST<Integer, Geocache> geo){
         int n_geo = Integer.parseInt(id_geo.replace("geocache", ""));
         if(geo.contains(n_geo)){
-            return (geo.get(n_geo).id.equals(regiao));
+            return (geo.get(n_geo).id_reg == regiao);
         }
         return false;
     }
@@ -243,27 +246,27 @@ public class main {
 
     public static void listarRegiao(int n_reg, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st) {
         System.out.print("\n");
-
-
-        /*for( int i = 0; i < reg_st.get(); i++){
-            if(regContainsCache(geo_st.get().id, reg_st.get().nome))
-            if (geo_st.get(i+1) != null){
-                System.out.println(i+1 + " " + geo_st.get(i+1));
-                int n_itens = 0;
-                if(geo_st.get(i+1).n_itens > 0){ System.out.print("\tItens{");
-
-                    for(int id_item = 1; n_itens < geo_st.get(i+1).getN_itens(); id_item++){
-                        if(geoContainsItem(id_item, geo_st.get(i+1).id, item_st)){
-                            System.out.print(" " + item_st.get(id_item).item);
-                            n_itens++;
-                            if (n_itens + 1 <= geo_st.get(i+1).getN_itens()) System.out.print(",");
+        for (int j = 0; j < n_reg; j++) {
+            System.out.println(reg_st.get(j + 1).nome.toUpperCase());
+            int n_caches = reg_st.get(j + 1).n_caches;
+            for (int i = 1; i <= n_caches; i++) {
+                    if (geo_st.get(i) != null && regContainsCache(geo_st.get(i).id, j + 1, geo_st)) {
+                        System.out.println("\t" + i + " " + geo_st.get(i));
+                        int n_itens = 0;
+                        if (geo_st.get(i).n_itens > 0) {
+                            System.out.print("\t\tItens{");
+                            for (int id_item = 1; n_itens < geo_st.get(i).getN_itens(); id_item++) {
+                                if (geoContainsItem(id_item, geo_st.get(i).id, item_st)) {
+                                    System.out.print(item_st.get(id_item).item);
+                                    n_itens++;
+                                    if (n_itens + 1 <= geo_st.get(i).getN_itens()) System.out.print(", ");
+                                }
+                            }
+                            System.out.print("}\n");
                         }
-                    }
-                    System.out.print("}\n");
-                }
+                    } else n_caches++;
             }
-            else n_geo++;
-        }                           Falta definir a regiao na cache,    falta acabar a listagem da regiao*/
+            System.out.print("\n");
+        }
     }
-
 }
