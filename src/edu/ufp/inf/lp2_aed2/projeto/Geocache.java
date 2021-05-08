@@ -72,6 +72,20 @@ public class Geocache {
     this.n_itens = n_itens;
   }
 
+  /*public void listGeocache(String id_user, int id_geo, int[] sizes, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> h_visited, SequentialSearchST<Integer, User> user_st){
+    int i, z = 0;
+    int id_reg = geo_st.get(id_geo).id_reg;
+    for(int j = 1; j <= sizes[0]; j++){
+      if(user_st.get(j+1) != null && user_st.get(j).nome.equals(id_user)){
+        z = j;
+        break;
+      }
+    }
+    for(i = 0; i < sizes[6]; i++) {
+      if (h_visited.get(z).visited[i] == id_geo) break;
+    }
+    System.out.println("Regiao " + capitalize(reg_st.get(id_reg).nome) + ", " + (capitalize(geo_st.get(id_geo).id)).replace("Geocache", "Geocache ") + " na data " + h_visited.get(id_geo).date[i]);
+  }*/
 
   public void addGeocache(String id, String tipo, float cX, float cY, int id_reg,  int[] sizes, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg) {
     int idgeo = Integer.parseInt(id.replace("geocache", ""));
@@ -111,6 +125,26 @@ public class Geocache {
     }
   }
 
+  public void usersVisitedCache(String geo, int[] size, SequentialSearchST<Integer, User> user_st, SequentialSearchST<Integer, Geocache> geo_st, RedBlackBST<Integer, HistoricoVisited> log){
+    /*int idgeo = Integer.parseInt(geo.replace("geocache", ""));
+    for(int i = 1; i <= size[0]; i++){
+      int current = 0, existe = 0;
+      for(int j = 1; j <= sizes[2]; j++){
+
+        for(int z = 0 ; z < log.get(i).n_visited; z++){
+          if(aux[z] == j){
+            existe = 1;
+            break;
+          }
+        }
+        if(existe != 1){
+          inverso[current] = j;
+          current++;
+        }
+        existe = 0;
+      }*/
+  }
+
   @Override
   public String toString() {
     return "Geocache{" +
@@ -121,5 +155,16 @@ public class Geocache {
             ", Regiao=" + id_reg +
             ", n_itens=" + n_itens +
             '}';
+  }
+
+  public static String capitalize(String str) {
+    int strLen;
+    if (str == null || (strLen = str.length()) == 0) {
+      return str;
+    }
+    return new StringBuffer(strLen)
+            .append(Character.toTitleCase(str.charAt(0)))
+            .append(str.substring(1))
+            .toString();
   }
 }

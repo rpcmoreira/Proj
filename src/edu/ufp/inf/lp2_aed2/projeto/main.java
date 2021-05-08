@@ -29,7 +29,6 @@ public class main {
             Scanner scan = new Scanner(new BufferedReader(new FileReader("data/input.txt")));
             sizes[0] = scan.nextInt();
             scan.nextLine();
-
             // Leitura do user
             for (int i = 0; i < sizes[0]; i++) {
                 User u = new User();
@@ -161,10 +160,10 @@ public class main {
             System.out.println(erro);
         }
         // Fim da leitura dos ficheiros
-
+        //User user = new User();
         // TESTES - INSERIR E REMOVER
         /*// USERS
-        User user = new User();
+
         user.addUser(8, "Patricia", "admin", sizes, user_st);
         user.removeUser(2, sizes, user_st);
         user.addUser(40, "Joao Paulo", "basic", sizes, user_st);
@@ -199,8 +198,12 @@ public class main {
         //listarGeocache(sizes, geo_st, item_st);
         //listarItens(sizes, item_st);
         //listarTravelbug(sizes, tvb_st);
-        //listarLigacoes(sizes, lig_st);
-
+        //listarLigacoes(sizes, lig_st);*/
+        User geocache = new User();
+        //geocache.searchVisitedCacheGlobal("Fernando", sizes,geo_st, reg_st, hisV_st);
+        //geocache.searchVisitedCacheRegiao("Fernando", 2, sizes,geo_st, reg_st, hisV_st);
+        //geocache.searchMissingCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
+        //geocache.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);
         output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);
     }
 
