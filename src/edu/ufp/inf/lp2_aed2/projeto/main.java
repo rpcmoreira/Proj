@@ -160,36 +160,36 @@ public class main {
             System.out.println(erro);
         }
         // Fim da leitura dos ficheiros
-        //User user = new User();
-        // TESTES - INSERIR E REMOVER
-        /*// USERS
 
-        user.addUser(8, "Patricia", "admin", sizes, user_st);
+        // TESTES - INSERIR E REMOVER
+        // USERS
+        User user = new User();
+        /*user.addUser(8, "Patricia", "admin", sizes, user_st);
         user.removeUser(2, sizes, user_st);
-        user.addUser(40, "Joao Paulo", "basic", sizes, user_st);
+        user.addUser(40, "Joao Paulo", "basic", sizes, user_st);*/
 
         // REGIAO
         Regiao regiao = new Regiao();
-        //regiao.addRegiao(4, "TesteReg", sizes, reg_st);
-        //regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);
+        /*regiao.addRegiao(4, "TesteReg", sizes, reg_st);
+        regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);*/
 
         // GEOCACHE
         Geocache geocache = new Geocache();
-        //geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
+        /*geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
         for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
             String res = "geocache" + i;
             geocache.removeGeocache(res, sizes, geo_st, reg_st, item_st);
-        }
+        }*/
 
         // ITEM
         Item item = new Item();
-       //item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
-       // item.addItem(23,"geocache19", "mp4", sizes, item_st, geo_st);
-        //item.removeItem(14, sizes, item_st, geo_st);
+        /*item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
+        item.addItem(23,"geocache19", "mp4", sizes, item_st, geo_st);
+        item.removeItem(14, sizes, item_st, geo_st);*/
 
         // LIGACOES
         Ligacoes ligacao = new Ligacoes();
-        ligacao.addLigacao("geocache2", "geocache19", 599.6f, 4573, sizes, lig_st);
+        /*ligacao.addLigacao("geocache2", "geocache19", 599.6f, 4573, sizes, lig_st);
         ligacao.removeLigacao("geocache17", "geocache18", sizes, lig_st);*/
 
         // Listar tudo
@@ -199,12 +199,16 @@ public class main {
         //listarItens(sizes, item_st);
         //listarTravelbug(sizes, tvb_st);
         //listarLigacoes(sizes, lig_st);*/
-        User geocache = new User();
+
+        // Pesquisas
         //geocache.searchVisitedCacheGlobal("Fernando", sizes,geo_st, reg_st, hisV_st);
         //geocache.searchVisitedCacheRegiao("Fernando", 2, sizes,geo_st, reg_st, hisV_st);
         //geocache.searchMissingCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
         //geocache.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);
-        output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);
+        geocache.usersVisitedCache("geocache1", sizes, user_st, geo_st,hisV_st);
+
+        // Save
+        //output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);
     }
 
     public static boolean geoContainsItem(int id_item, String id_geo, SequentialSearchST<Integer, Item> itens){

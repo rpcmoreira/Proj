@@ -125,24 +125,19 @@ public class Geocache {
     }
   }
 
-  public void usersVisitedCache(String geo, int[] size, SequentialSearchST<Integer, User> user_st, SequentialSearchST<Integer, Geocache> geo_st, RedBlackBST<Integer, HistoricoVisited> log){
-    /*int idgeo = Integer.parseInt(geo.replace("geocache", ""));
-    for(int i = 1; i <= size[0]; i++){
-      int current = 0, existe = 0;
-      for(int j = 1; j <= sizes[2]; j++){
+  public void usersVisitedCache(String geo, int[] sizes, SequentialSearchST<Integer, User> user_st, SequentialSearchST<Integer, Geocache> geo_st, RedBlackBST<Integer, HistoricoVisited> histV_st) {
+    int idgeo = Integer.parseInt(geo.replace("geocache", ""));
+      // 1 Percorrer todos os users, 2 em cada um verificar nos logs se 3 existe o idgeo e se 4 existir imprimir o user
 
-        for(int z = 0 ; z < log.get(i).n_visited; z++){
-          if(aux[z] == j){
-            existe = 1;
-            break;
-          }
+    System.out.println("Users que pertencem a Geocache " + idgeo + ":");
+    for(int i = 1; i <= sizes[0]; i++){                                                                                 // Percorre os users
+      if(histV_st.get(i) != null && histV_st.get(i).user.equals(user_st.get(i).nome)){
+        for(int j = 0; j < histV_st.get(i).n_visited; j++){                                                             // Percorre as geos que o user visitou
+          if(histV_st.get(i).visited[j] == idgeo)                                                                       // Verifica se a geo é a mesma que se pretende
+            System.out.println("\t\tUser " + user_st.get(i).nome);
         }
-        if(existe != 1){
-          inverso[current] = j;
-          current++;
-        }
-        existe = 0;
-      }*/
+      }
+    }
   }
 
   @Override
