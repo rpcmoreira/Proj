@@ -4,16 +4,15 @@ import edu.princeton.cs.algs4.*;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class main {
 
     public static void main(String[] args) {
         // Start
-        //int n_user = 0, n_reg = 0, n_geo = 0,n_itens = 0, n_tv = 0, n_lig = 0;
-        int[] sizes = new int[6];
-        for(int i = 0; i < 6; i++) sizes[i] = 0;
+        //int n_user = 0, n_reg = 0, n_geo = 0,n_itens = 0, n_tv = 0, n_lig = 0, n_visitado, n_histTB;
+        int[] sizes = new int[8];
+        for(int i = 0; i < 8; i++) sizes[i] = 0;
 
         SequentialSearchST<Integer, User> user_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Geocache> geo_st = new SequentialSearchST<>();
@@ -22,7 +21,8 @@ public class main {
         SequentialSearchST<Integer, Regiao> reg_st = new SequentialSearchST<>();
         SequentialSearchST<Integer, Travelbug> tvb_st = new SequentialSearchST<>();
 
-        RedBlackBST<Integer, Historico> log_st = new RedBlackBST<>();
+        RedBlackBST<Integer, HistoricoVisited> hisV_st = new RedBlackBST<>();
+        SequentialSearchST<Integer, HistoricoTB> hisTB_st = new SequentialSearchST<>();
 
         // Leitura do ficheiro input.txt
         try {
@@ -115,48 +115,55 @@ public class main {
                 tvb_st.put(i+1, tb);
             }
 
-            // Leitura dos logs
+            // Leitura do Historico de visitas
             scan = new Scanner(new BufferedReader(new FileReader("data/logs.txt")));
-            int x = scan.nextInt();
+            sizes[6] = scan.nextInt();
             scan.nextLine();
 
-            for (int i = 0; i < x; i++) {
-                Historico hist = new Historico();
-                hist.log_size = x;
+            for (int i = 1; i <= sizes[6]; i++) {
+                HistoricoVisited histV = new HistoricoVisited();
                 String[] data = scan.nextLine().split(", ");
-                hist.user = data[0];
-                hist.n_visited = Integer.parseInt(data[1]);
-                hist.visited = new int[hist.n_visited];
-                hist.date = new Date[hist.n_visited];
-                for (int y = 0; y < hist.n_visited; y++) {
-                    hist.visited[y] = Integer.parseInt(data[2 + y]);
+                histV.user = data[0];
+                histV.n_visited = Integer.parseInt(data[1]);
+                histV.visited = new int[histV.n_visited];
+                histV.date = new Date[histV.n_visited];
+
+                for (int y = 0; y < histV.n_visited; y++) {
+                    histV.visited[y] = Integer.parseInt(data[y+2]);
                 }
+
+                // Data
                 String[] data1 = scan.nextLine().split(", ");
-                for (int y = 0; y < hist.n_visited; y++) {
-                    String[] aux = data1[y].split("-");
-                    hist.date[y] = new Date(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
-                    System.out.println(y + "   " + hist.date[y]);
+                for (int y = 0; y < histV.n_visited; y++) {
+                    String[] aux = data1[y].split("/");
+                    histV.date[y] = new Date(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
+                    //System.out.println(y + "   " + hist.date[y]);
                 }
-                /*x = scan.nextInt();
-                scan.next();
-                for(int z = 0; z < x; z++){
-                    hist.n_tb = x;
-                    String data2[] = scan.nextLine().split(", ");
-                    hist.user = data2[0];
-                    hist.n_tb = Integer.parseInt(data2[1]);
-                    hist.tb_start = Integer.parseInt(data2[2]);
-                    hist.tb_start = Integer.parseInt(data2[3]);
-                }*/
-                log_st.put(i, hist);
-                //System.out.println(log_st.get(i).toString());
+                hisV_st.put(i,histV);
             }
+
+
+                // Leitura do historico de TB
+                sizes[7] = scan.nextInt();
+                scan.nextLine();
+                for(int z = 1; z <= sizes[7]; z++){
+                    HistoricoTB histTB = new HistoricoTB();
+                    String[] data2 = scan.nextLine().split(", ");
+                    histTB.user = data2[0];
+                    histTB.id_tb = Integer.parseInt(data2[1]);
+                    histTB.tb_start = Integer.parseInt(data2[2]);
+                    histTB.tb_end = Integer.parseInt(data2[3]);
+                    hisTB_st.put(z, histTB);
+                }
+
+
         } catch (FileNotFoundException erro) {
-            System.out.println(erro.toString());
+            System.out.println(erro);
         }
         // Fim da leitura dos ficheiros
 
         // TESTES - INSERIR E REMOVER
-        // USERS
+        /*// USERS
         User user = new User();
         user.addUser(8, "Patricia", "admin", sizes, user_st);
         user.removeUser(2, sizes, user_st);
@@ -170,10 +177,10 @@ public class main {
         // GEOCACHE
         Geocache geocache = new Geocache();
         //geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
-       /* for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
+        for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
             String res = "geocache" + i;
             geocache.removeGeocache(res, sizes, geo_st, reg_st, item_st);
-        }*/
+        }
 
         // ITEM
         Item item = new Item();
@@ -182,22 +189,19 @@ public class main {
         //item.removeItem(14, sizes, item_st, geo_st);
 
         // LIGACOES
-        /*Ligacoes ligacao = new Ligacoes();
+        Ligacoes ligacao = new Ligacoes();
         ligacao.addLigacao("geocache2", "geocache19", 599.6f, 4573, sizes, lig_st);
         ligacao.removeLigacao("geocache17", "geocache18", sizes, lig_st);*/
 
         // Listar tudo
-        listarUsers(sizes, user_st);
+        //listarUsers(sizes, user_st);
         //listarRegiao(sizes, reg_st, geo_st, item_st);
         //listarGeocache(sizes, geo_st, item_st);
         //listarItens(sizes, item_st);
         //listarTravelbug(sizes, tvb_st);
         //listarLigacoes(sizes, lig_st);
 
-
-
-
-        output(user_st, reg_st,geo_st,item_st,lig_st,tvb_st,log_st,sizes);
+        output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);
     }
 
     public static boolean geoContainsItem(int id_item, String id_geo, SequentialSearchST<Integer, Item> itens){
@@ -307,10 +311,19 @@ public class main {
         }
     }
 
+    /*public static void listarVisitas(SequentialSearchST<Integer, Historico> his_st){
+        //int n_hist = his_st.get(0).;
+        System.out.println("\n");
+        for(int i = 0; i < n_tv; i++){
+            if(tvb_st.get(i+1) != null) System.out.println(i+1 + " " + tvb_st.get(i+1));
+            else n_tv++;
+        }
+        //System.out.println("\n");
+    }*/
 
 
-    public static void output(SequentialSearchST<Integer, User> user, SequentialSearchST<Integer, Regiao> regiao, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer,Item> item,
-                              SequentialSearchST<Integer, Ligacoes> lig, SequentialSearchST<Integer, Travelbug> tvb, RedBlackBST<Integer, Historico> log, int[] size){
+    public static void output(int[] size, SequentialSearchST<Integer, User> user, SequentialSearchST<Integer, Regiao> regiao, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer,Item> item,
+                              SequentialSearchST<Integer, Ligacoes> lig, SequentialSearchST<Integer, Travelbug> tvb, RedBlackBST<Integer, HistoricoVisited> visited, SequentialSearchST<Integer, HistoricoTB> tb){
 
         Out out = new Out("data/output.txt");
 
@@ -366,26 +379,34 @@ public class main {
 
         out.close();
 
+        // Ficheiro logs
         Out logs_out = new Out("data/logs_output.txt");
-        int i = 0;
-        int p = log.get(1).log_size;
-        logs_out.println(log.get(1).log_size);
-        for(i = 0; i < p; i++){
-            logs_out.print(log.get(i).user + ", " + log.get(i).n_visited);
-            for(int z = 0; z < log.get(i).n_visited; z++){
-                logs_out.print(", " + log.get(i).visited[z]);
+
+        int p = size[6];
+        logs_out.println(p);
+        for(int i = 1; i <= p; i++){
+
+            logs_out.print(visited.get(i).user + ", " + visited.get(i).n_visited);
+            for(int z = 0; z < visited.get(i).n_visited; z++){
+                logs_out.print(", " + visited.get(i).visited[z]);
             }
             logs_out.print("\n");
-            for(int k = 0; k < log.get(i).n_visited-1; k++){
-                System.out.println(k + "..........." + log.get(i).n_visited);
-                logs_out.print(log.get(i).date[k]);
-                if(log.get(i).date[k+1] != null){
+
+            // Imprimir datas
+            for(int k = 0; k < visited.get(i).n_visited; k++){
+                logs_out.print(visited.get(i).date[k]);
+                if(k < visited.get(i).n_visited - 1){
                     logs_out.print(", ");
                 }
             }
             logs_out.print("\n");
         }
-        logs_out.close();
 
+        int s = size[7];
+        logs_out.println(s);
+        for(int i = 1; i <= s; i++){
+            logs_out.println(tb.get(i).user + ", " + tb.get(i).id_tb + ", " + tb.get(i).tb_start + ", " + tb.get(i).tb_end);
+        }
+        logs_out.close();
     }
 }

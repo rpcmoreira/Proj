@@ -1,11 +1,10 @@
-7
+6
 1, Manuel, basic
+2, Pedro, basic
 3, Fernando, admin
 4, Joana, basic
 5, Maria, premium
 6, Filomena, admin
-8, Patricia, admin
-40, Joao Paulo, basic
 3
 norte, 7
 geocache1, basic, 41.172085, -8.614818, 3, canudo, livro, oculos
