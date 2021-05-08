@@ -1,9 +1,8 @@
 package edu.ufp.inf.lp2_aed2.projeto;
 
 import edu.princeton.cs.algs4.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
+import java.io.*;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
@@ -123,7 +122,7 @@ public class main {
 
             for (int i = 0; i < x; i++) {
                 Historico hist = new Historico();
-
+                hist.log_size = x;
                 String[] data = scan.nextLine().split(", ");
                 hist.user = data[0];
                 hist.n_visited = Integer.parseInt(data[1]);
@@ -136,7 +135,18 @@ public class main {
                 for (int y = 0; y < hist.n_visited; y++) {
                     String[] aux = data1[y].split("-");
                     hist.date[y] = new Date(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
+                    System.out.println(y + "   " + hist.date[y]);
                 }
+                /*x = scan.nextInt();
+                scan.next();
+                for(int z = 0; z < x; z++){
+                    hist.n_tb = x;
+                    String data2[] = scan.nextLine().split(", ");
+                    hist.user = data2[0];
+                    hist.n_tb = Integer.parseInt(data2[1]);
+                    hist.tb_start = Integer.parseInt(data2[2]);
+                    hist.tb_start = Integer.parseInt(data2[3]);
+                }*/
                 log_st.put(i, hist);
                 //System.out.println(log_st.get(i).toString());
             }
@@ -147,29 +157,29 @@ public class main {
 
         // TESTES - INSERIR E REMOVER
         // USERS
-        /*User user = new User();
+        User user = new User();
         user.addUser(8, "Patricia", "admin", sizes, user_st);
         user.removeUser(2, sizes, user_st);
-        user.addUser(40, "Joao Paulo", "basic", sizes, user_st);*/
+        user.addUser(40, "Joao Paulo", "basic", sizes, user_st);
 
         // REGIAO
         Regiao regiao = new Regiao();
-        regiao.addRegiao(4, "TesteReg", sizes, reg_st);
-        regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);
+        //regiao.addRegiao(4, "TesteReg", sizes, reg_st);
+        //regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);
 
         // GEOCACHE
         Geocache geocache = new Geocache();
-        geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
-        for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
+        //geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
+       /* for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
             String res = "geocache" + i;
             geocache.removeGeocache(res, sizes, geo_st, reg_st, item_st);
-        }
+        }*/
 
         // ITEM
         Item item = new Item();
-        item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
-        item.addItem(23,"geocache19", "mp4", sizes, item_st, geo_st);
-        item.removeItem(14, sizes, item_st, geo_st);
+       //item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
+       // item.addItem(23,"geocache19", "mp4", sizes, item_st, geo_st);
+        //item.removeItem(14, sizes, item_st, geo_st);
 
         // LIGACOES
         /*Ligacoes ligacao = new Ligacoes();
@@ -177,12 +187,17 @@ public class main {
         ligacao.removeLigacao("geocache17", "geocache18", sizes, lig_st);*/
 
         // Listar tudo
-        //listarUsers(sizes, user_st);
-        listarRegiao(sizes, reg_st, geo_st, item_st);
+        listarUsers(sizes, user_st);
+        //listarRegiao(sizes, reg_st, geo_st, item_st);
         //listarGeocache(sizes, geo_st, item_st);
         //listarItens(sizes, item_st);
         //listarTravelbug(sizes, tvb_st);
         //listarLigacoes(sizes, lig_st);
+
+
+
+
+        output(user_st, reg_st,geo_st,item_st,lig_st,tvb_st,log_st,sizes);
     }
 
     public static boolean geoContainsItem(int id_item, String id_geo, SequentialSearchST<Integer, Item> itens){
@@ -290,5 +305,87 @@ public class main {
                 System.out.print("\n");
             } else n_reg++;
         }
+    }
+
+
+
+    public static void output(SequentialSearchST<Integer, User> user, SequentialSearchST<Integer, Regiao> regiao, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer,Item> item,
+                              SequentialSearchST<Integer, Ligacoes> lig, SequentialSearchST<Integer, Travelbug> tvb, RedBlackBST<Integer, Historico> log, int[] size){
+
+        Out out = new Out("data/output.txt");
+
+        // Users
+        out.println(user.size());
+        int n_users = size[0];
+        for(int i = 1; i <= n_users; i++){
+            if(user.get(i) != null) {
+                out.println(i + ", " + user.get(i).nome + ", " + user.get(i).tipo);
+            }else n_users++;
+        }
+
+        // Regiao
+        out.println(regiao.size());
+        int n_reg = size[1];
+        int last = 0;
+        for(int i = 1; i <= n_reg; i++){
+            out.println(regiao.get(i).nome + ", " + regiao.get(i).n_caches);
+
+            //Geocaches
+            int n_geo = (regiao.get(i).n_caches + last + 1);
+            for(int j = last + 1; j<n_geo; j++){
+                out.print(geo.get(j).id + ", " + geo.get(j).tipo + ", " + geo.get(j).coordenadasX + ", " + geo.get(j).coordenadasY + ", " + geo.get(j).n_itens);
+                if(geo.get(j).n_itens > 0){
+
+                    //itens
+                    int n_itens = geo.get(j).n_itens;
+                    for(int k = 1; k <= n_itens; k++){
+                        if(geoContainsItem(k, geo.get(j).id, item)){
+                            out.print(", " + item.get(k).item);
+                        }
+                        else{
+                            n_itens++;
+                        }
+                    }
+                }
+                last = j;
+                out.print("\n");
+            }
+        }
+
+        int n_lig = size[5];
+        out.println(lig.size());
+        for(int i = 1; i <= n_lig; i++){
+            out.println(lig.get(i).id_1 + ", " + lig.get(i).id_2 + ", " + lig.get(i).distancia + ", " + lig.get(i).tempo);
+        }
+
+        int n_tvb = size[4];
+        out.println(tvb.size());
+        for(int i = 1; i <= n_tvb; i++){
+            out.println(tvb.get(i).id + ", " + tvb.get(i).user + ", " + tvb.get(i).geo_inicial + ", " + tvb.get(i).geo_destino);
+        }
+
+        out.close();
+
+        Out logs_out = new Out("data/logs_output.txt");
+        int i = 0;
+        int p = log.get(1).log_size;
+        logs_out.println(log.get(1).log_size);
+        for(i = 0; i < p; i++){
+            logs_out.print(log.get(i).user + ", " + log.get(i).n_visited);
+            for(int z = 0; z < log.get(i).n_visited; z++){
+                logs_out.print(", " + log.get(i).visited[z]);
+            }
+            logs_out.print("\n");
+            for(int k = 0; k < log.get(i).n_visited-1; k++){
+                System.out.println(k + "..........." + log.get(i).n_visited);
+                logs_out.print(log.get(i).date[k]);
+                if(log.get(i).date[k+1] != null){
+                    logs_out.print(", ");
+                }
+            }
+            logs_out.print("\n");
+        }
+        logs_out.close();
+
     }
 }

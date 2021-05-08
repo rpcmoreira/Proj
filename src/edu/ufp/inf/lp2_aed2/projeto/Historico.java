@@ -3,6 +3,7 @@ package edu.ufp.inf.lp2_aed2.projeto;
 import java.util.Arrays;
 
 public class Historico {
+    public int log_size;
     public String user;
     public int n_visited;
     public int[] visited;
