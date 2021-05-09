@@ -53,7 +53,7 @@ public class User {
   }
 
   /**
-   * Funcao que cria um User e o adiciona na sua ST
+   * Cria um User e o adiciona na sua ST
    * @param id - id do user a adicionar
    * @param nome - nome do user a adicionar
    * @param tipo - tipo do user a adicionar (basic, premium, admin)
@@ -73,7 +73,7 @@ public class User {
   }
 
   /**
-   * Funcao que remove o User, usando o id, da ST
+   * Remove o User, usando o id, da ST
    * @param id - id do user a remover
    * @param sizes - array com o numero total das variaveis (sendo a posicao 0 o numero de users)
    * @param user_st - ST dos users
@@ -90,7 +90,7 @@ public class User {
   }
 
   /**
-   * Funcao que edita um parametro do user, recebendo o parametro a alterar
+   * Edita um parametro do user, recebendo o parametro a alterar
    * @param tipo - parametro que se vai alterar
    * @param conteudo - conteudo com o qual se vai alterar
    * @param id - id do user
@@ -117,7 +117,7 @@ public class User {
   }
 
   /**
-   * funcao que lista as caches que um user visitou, de uma forma geral
+   * Lista as caches que um user visitou, de uma forma geral
    * @param nome - nome do user a procurar
    * @param sizes - array com o numero total de user
    * @param geo_st - ST das Geocaches
@@ -139,7 +139,7 @@ public class User {
     }
 
   /**
-   * funcao que lista as caches que um user visitou, delimitando por regiao
+   * Lista as caches que um user visitou, delimitando por regiao
    * @param nome - nome do user a procurar
    * @param id_reg - id da regiao para delimitar a pesquisa
    * @param sizes - array com o numero total de user
@@ -164,7 +164,7 @@ public class User {
   }
 
   /**
-   * funcao para fazer a pesquisa das geocaches nao visitadas pelo user de forma geral
+   * Lista as geocaches nao visitadas pelo user, de uma forma geral
    * @param nome - nome do user a procurar
    * @param sizes - array com o numero total de user
    * @param geo_st - ST das Geocaches
@@ -207,7 +207,7 @@ public class User {
   }
 
   /**
-   * funcao que lista as caches que um user ainda nao visitou, delimitando por regiao
+   * Lista as caches que um user ainda nao visitou, delimitando por regiao
    * @param nome - nome do user a procurar
    * @param id_reg - id da regiao para delimitar a pesquisa
    * @param sizes - array com o numero total de user
@@ -267,6 +267,11 @@ public class User {
             "}";
   }
 
+  /**
+   * Coloca uma String com a primeira letra em maiuscula
+   * @param str - String para por com maiuscula
+   * @return - Da return a string com a primeira letra maiuscula
+   */
   public static String capitalize(String str) {
     int strLen;
     if (str == null || (strLen = str.length()) == 0) {

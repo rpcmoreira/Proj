@@ -223,6 +223,13 @@ public class main {
         //output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);
     }
 
+    /**
+     * Verifica se uma geocache contem um item
+     * @param id_item - Id do Item
+     * @param id_geo - Id da Geocache
+     * @param itens - ST dos Itens
+     * @return - Verdadeiro se contem, falso se nao contem
+     */
     public static boolean geoContainsItem(int id_item, String id_geo, SequentialSearchST<Integer, Item> itens){
         if(itens.contains(id_item)){
             return (itens.get(id_item).id_geo.equals(id_geo));
@@ -230,6 +237,13 @@ public class main {
         return false;
     }
 
+    /**
+     * Verifica se uma regiao contem a cache
+     * @param id_geo - Id da Geocache
+     * @param regiao - Id da Regiao
+     * @param geo - ST das Geocaches
+     * @return - Verdadeiro se contem, falso se nao contem
+     */
     public static boolean regContainsCache(String id_geo, int regiao, SequentialSearchST<Integer, Geocache> geo){
         int n_geo = Integer.parseInt(id_geo.replace("geocache", ""));
         if(geo.contains(n_geo)){
@@ -238,6 +252,11 @@ public class main {
         return false;
     }
 
+    /**
+     * Lista os users todos
+     * @param sizes - Array com o numero total de Users
+     * @param user_st - ST dos Users
+     */
     public static void listarUsers(int[] sizes, SequentialSearchST<Integer, User> user_st) {
         int n_users = sizes[0];
         System.out.print("\n");
@@ -248,6 +267,12 @@ public class main {
         //System.out.print("\n");
     }
 
+    /**
+     * Lista todas as geocaches e os seus itens
+     * @param sizes - Array com o numero total de Geocaches
+     * @param geo_st - ST das Geocaches
+     * @param item_st - ST dos Itens
+     */
     public static void listarGeocache(int[] sizes, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
         int n_geo = sizes[2];
         System.out.print("\n");
@@ -271,6 +296,11 @@ public class main {
         //System.out.print("\n");
     }
 
+    /**
+     * Lista todas as ligacoes entre geocaches
+     * @param sizes - Array com o numero total de ligacoes
+     * @param lig_st - ST das Ligacoes
+     */
     public static void listarLigacoes(int[] sizes, SequentialSearchST<Integer, Ligacoes> lig_st){
         int n_lig = sizes[5];
         System.out.println("\n");
@@ -281,6 +311,11 @@ public class main {
         //System.out.println("\n");
     }
 
+    /**
+     * Funcao que lista todos os itens
+     * @param sizes - Array com o numero total de itens
+     * @param item_st - ST dos Itens
+     */
     public static void listarItens(int[] sizes, SequentialSearchST<Integer, Item> item_st){
         int n_itens = sizes[3];
         System.out.println("\n");
@@ -291,6 +326,11 @@ public class main {
         //System.out.println("\n");
     }
 
+    /**
+     * Lista todoso os travelbugs
+     * @param sizes - Array com o numero total de travelbugs
+     * @param tvb_st - ST dos Travelbugs
+     */
     public static void listarTravelbug(int[] sizes, SequentialSearchST<Integer, Travelbug> tvb_st){
         int n_tv = sizes[4];
         System.out.println("\n");
@@ -301,6 +341,13 @@ public class main {
         //System.out.println("\n");
     }
 
+    /**
+     * Funcao que lista todas as regioes, com as suas geocaches e respetivos itens
+     * @param sizes - Array com o numero total de regios
+     * @param reg_st - ST das Regioes
+     * @param geo_st - St das Geocaches
+     * @param item_st - St dos Itens
+     */
     public static void listarRegiao(int[] sizes, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st) {
         int n_reg = sizes[1];
         System.out.print("\n");
@@ -340,7 +387,18 @@ public class main {
         //System.out.println("\n");
     }*/
 
-
+    /**
+     * Funcao que da output de toda a informacao para um ficheiro
+     * @param size - Array que tem o numero total de dos valores das STs
+     * @param user - St dos Users
+     * @param regiao - ST das Regioes
+     * @param geo - ST das Geocaches
+     * @param item - ST dos Itens
+     * @param lig - ST das Ligacoes
+     * @param tvb - ST dos Travelbugs
+     * @param visited - ST dos User Logs
+     * @param tb - ST dos Travelbug Logs
+     */
     public static void output(int[] size, SequentialSearchST<Integer, User> user, SequentialSearchST<Integer, Regiao> regiao, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer,Item> item,
                               SequentialSearchST<Integer, Ligacoes> lig, SequentialSearchST<Integer, Travelbug> tvb, RedBlackBST<Integer, HistoricoVisited> visited, SequentialSearchST<Integer, HistoricoTB> tb){
 

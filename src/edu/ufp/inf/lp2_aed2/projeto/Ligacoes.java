@@ -64,6 +64,15 @@ public class Ligacoes {
   public void listarligacoes(String id_1) {
   }
 
+  /**
+   * Cria uma nova ligacao entre duas geocaches
+   * @param id_1 - Geocache 1
+   * @param id_2 - Geocache 2
+   * @param distancia - Distancia entre as duas Geocaches
+   * @param tempo - Tempo de Viagem entre as Geocaches
+   * @param sizes - Array com o numero total de Ligacoes
+   * @param lig_st - St das Ligacoes
+   */
   public void addLigacao(String id_1, String id_2, float distancia, int tempo, int[] sizes, SequentialSearchST<Integer,Ligacoes> lig_st) {
     for(int i = 1; i <= sizes[5]; i++){
       if(lig_st.get(i).id_1.equals(id_1) && lig_st.get(i).id_2.equals(id_2)){
@@ -77,6 +86,13 @@ public class Ligacoes {
     System.out.println("Ligacao entre " + id_1 + "e " + id_2 + " adicionada com sucesso! -> " + ligacao);
   }
 
+  /**
+   * Remove uma ligacao entre duas geocaches
+   * @param id_1 - Geocache 1
+   * @param id_2 - Geocache 2
+   * @param sizes - Array com o numero total de Ligacoes
+   * @param lig_st - St das Ligacoes
+   */
   public void removeLigacao(String id_1, String id_2,int[] sizes, SequentialSearchST<Integer,Ligacoes> lig_st) {
     for(int i = 1; i <= sizes[5]; i++) {
       if (lig_st.get(i).id_1.equals(id_1) && lig_st.get(i).id_2.equals(id_2)) {
@@ -89,6 +105,13 @@ public class Ligacoes {
     System.out.println("Ligacao nao existe!");
   }
 
+  /**
+   * Edita o parametro de uma ligacao, alterando-o para o conteudo recebido
+   * @param tipo - @param tipo - Parametro a alterar
+   * @param conteudo - Valor para qual se mudara o parametro
+   * @param id - Id da ligacao
+   * @param lig_st - ST das Ligacoes
+   */
   public void editLigacao(String tipo, String conteudo, int id, SequentialSearchST<Integer, Ligacoes> lig_st) {
     if (id <= lig_st.size()) {
       switch (tipo) {

@@ -33,6 +33,13 @@ public class Item {
     this.item = item;
   }
 
+  /**
+   * Remove um item, removendo o tambem da respetiva geocache
+   * @param id - Id do Item a remover
+   * @param sizes - Array com o numero total de Itens
+   * @param itens - ST dos Itens
+   * @param geocache - ST das Geocaches
+   */
   public void removeItem(int id, int[] sizes,  SequentialSearchST<Integer, Item> itens, SequentialSearchST<Integer, Geocache> geocache) {
     if (itens.contains(id)){
       int n_geo = Integer.parseInt(itens.get(id).id_geo.replace("geocache", ""));
@@ -45,6 +52,15 @@ public class Item {
     }
   }
 
+  /**
+   * Adiciona um item numa geocache
+   * @param id - Id do item a adicionar
+   * @param id_geo - Id da Geocache onde se vai inserir o item
+   * @param item - Nome do item a adicionar
+   * @param sizes - Array com o numero total de Itens
+   * @param itens - ST dos Itens
+   * @param geocache - ST das Geocahces
+   */
   public void addItem(int id, String id_geo, String item, int[] sizes, SequentialSearchST<Integer, Item> itens, SequentialSearchST<Integer, Geocache> geocache){
     if(itens.contains(id)){
       System.out.println("Item ja presente\n");
@@ -60,6 +76,13 @@ public class Item {
     }
   }
 
+  /**
+   * Edita o parametro recebido de um Item, para o conteudo recebido
+   * @param tipo - Parametro a alterar
+   * @param conteudo - Conteudo que sera o novo parametro
+   * @param id - Id do Item
+   * @param item_st - ST das Itens
+  */
   public void editItem(String tipo, String conteudo, int id, SequentialSearchST<Integer, Item> item_st) {
     if (id <= item_st.size()) {
       switch (tipo) {

@@ -59,6 +59,15 @@ public class Travelbug {
   public void now() {
   }
 
+  /**
+   * Cria um Travelbug
+   * @param id - Id do Travelbug a adicionar
+   * @param user - Ultimo User que possui o Travelbug
+   * @param geo_inicial - Geocache onde o Travelbug se encontra inicialmente
+   * @param geo_destino - Geocache onde a missao do travelbug acaba
+   * @param sizes - Array com o numero total de Travelbugs
+   * @param tvb_st - ST dos Travelbugs
+   */
   public void addTravelbug(String id, String user, String geo_inicial, String geo_destino, int[]sizes, SequentialSearchST<Integer, Travelbug> tvb_st) {
     int id_tb = Integer.parseInt(id.replace("travelbug", ""));
     if(tvb_st.contains(id_tb)){
@@ -72,6 +81,12 @@ public class Travelbug {
     }
   }
 
+  /**
+   * Remove um travelbug, usando o seu id
+   * @param id - Id do travelbug
+   * @param sizes - Array com o numero total de Travelbugs
+   * @param tvb_st - ST dos TravelBugs
+   */
   public void removeTravelBug(int id, int[] sizes, SequentialSearchST<Integer, Travelbug> tvb_st) {
     if(tvb_st.contains(id)){
       tvb_st.delete(id);

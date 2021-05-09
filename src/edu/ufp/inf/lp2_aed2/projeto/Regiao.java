@@ -37,6 +37,13 @@ public class Regiao {
   public void listarCaches(Geocache g) {
   }
 
+  /**
+   * Cria uma Regiao nova
+   * @param id - Id da Regiao a adicionar
+   * @param nome - Nome da Regiao
+   * @param sizes - Array com o numero total de Regioes
+   * @param reg_st - ST das Regioes
+   */
   public void addRegiao(int id, String nome, int[] sizes, SequentialSearchST<Integer,Regiao> reg_st) {
     if(reg_st.contains(id)){
       System.out.println("Regiao ja definida");
@@ -49,6 +56,14 @@ public class Regiao {
     }
   }
 
+  /**
+   * Remove uma Regiao existente, usando o seu id, removendo tambem as suas geocaches e respetivos itens
+   * @param id - Id da Regiao
+   * @param sizes - Array com o umero total de Regioes
+   * @param reg_st - ST das Regioes
+   * @param geo_st - ST das Geocaches
+   * @param item_st - ST dos Itens
+   */
   public void removeRegiao(int id, int[] sizes, SequentialSearchST<Integer, Regiao> reg_st, SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Item> item_st){
       if(reg_st.contains(id)){
 
@@ -69,6 +84,13 @@ public class Regiao {
     }
   }
 
+  /**
+   * Edita o parametro de uma regiao, alterando-o para o conteudo recebido
+   * @param tipo - Parametro a alterar
+   * @param conteudo - Valor para qual se mudara o parametro
+   * @param id - Id da Regiao
+   * @param reg_st - ST das Regioes
+   */
   public void editRegiao(String tipo, String conteudo, int id, SequentialSearchST<Integer, Regiao> reg_st) {
     if (id <= reg_st.size()) {
       switch (tipo) {
