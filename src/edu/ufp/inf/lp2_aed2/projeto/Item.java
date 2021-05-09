@@ -60,6 +60,19 @@ public class Item {
     }
   }
 
+  public void editItem(String tipo, String conteudo, int id, SequentialSearchST<Integer, Item> item_st) {
+    if (id <= item_st.size()) {
+      switch (tipo) {
+        case "item":
+          item_st.get(id).item = conteudo;
+          break;
+        default:
+          System.out.println("Tipo introduzido invalido");
+      }
+    }else {
+      System.out.println("Item nao existe");
+    }
+}
 
   @Override
   public String toString() {

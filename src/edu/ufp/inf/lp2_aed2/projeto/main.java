@@ -164,14 +164,13 @@ public class main {
         // TESTES - INSERIR E REMOVER
         // USERS
         User user = new User();
-        /*user.addUser(8, "Patricia", "admin", sizes, user_st);
-        user.removeUser(2, sizes, user_st);
-        user.addUser(40, "Joao Paulo", "basic", sizes, user_st);*/
+        //user.addUser(8, "Patricia", "admin", sizes, user_st);
+        //user.removeUser(2, sizes, user_st);
 
         // REGIAO
         Regiao regiao = new Regiao();
-        /*regiao.addRegiao(4, "TesteReg", sizes, reg_st);
-        regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);*/
+        //regiao.addRegiao(4, "TesteReg", sizes, reg_st);
+        //regiao.removeRegiao(2, sizes, reg_st, geo_st, item_st);*/
 
         // GEOCACHE
         Geocache geocache = new Geocache();
@@ -183,14 +182,26 @@ public class main {
 
         // ITEM
         Item item = new Item();
-        /*item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
-        item.addItem(23,"geocache19", "mp4", sizes, item_st, geo_st);
-        item.removeItem(14, sizes, item_st, geo_st);*/
+        //item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
+        //item.removeItem(14, sizes, item_st, geo_st);
 
         // LIGACOES
         Ligacoes ligacao = new Ligacoes();
-        /*ligacao.addLigacao("geocache2", "geocache19", 599.6f, 4573, sizes, lig_st);
-        ligacao.removeLigacao("geocache17", "geocache18", sizes, lig_st);*/
+        //ligacao.addLigacao("geocache2", "geocache19", 599.6f, 4573, sizes, lig_st);
+        //ligacao.removeLigacao("geocache17", "geocache18", sizes, lig_st);
+
+        // TRAVELBUG
+        Travelbug travelbug = new Travelbug();
+        //travelbug.addTravelbug("travelbug4", "Pedro", "geocache12", "geocache13",sizes, tvb_st);
+        //travelbug.removeTravelBug(1, sizes, tvb_st);
+
+        // EDITAR
+        //user.editUser("nome", "TESTE", 1, user_st);
+        //geocache.editCache("tipo", "TESTE", 1, geo_st);
+        //item.editItem("item", "TESTE", 1,item_st);
+        //regiao.editRegiao("nome", "TESTE", 4, reg_st);
+        //ligacao.editLigacao("id1", "TESTE", 1, lig_st);
+
 
         // Listar tudo
         //listarUsers(sizes, user_st);
@@ -198,14 +209,15 @@ public class main {
         //listarGeocache(sizes, geo_st, item_st);
         //listarItens(sizes, item_st);
         //listarTravelbug(sizes, tvb_st);
-        //listarLigacoes(sizes, lig_st);*/
+        //listarLigacoes(sizes, lig_st);
 
         // Pesquisas
         //geocache.searchVisitedCacheGlobal("Fernando", sizes,geo_st, reg_st, hisV_st);
         //geocache.searchVisitedCacheRegiao("Fernando", 2, sizes,geo_st, reg_st, hisV_st);
         //geocache.searchMissingCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
         //geocache.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);
-        geocache.usersVisitedCache("geocache1", sizes, user_st, geo_st,hisV_st);
+        //geocache.usersVisitedCache("geocache1", sizes, user_st, geo_st,hisV_st);
+        //geocache.premiumWithItem(sizes, geo_st);
 
         // Save
         //output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);

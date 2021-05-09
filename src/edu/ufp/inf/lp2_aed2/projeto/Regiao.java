@@ -67,7 +67,20 @@ public class Regiao {
     else{
       System.out.println("Regiao Inválida!");
     }
+  }
 
+  public void editRegiao(String tipo, String conteudo, int id, SequentialSearchST<Integer, Regiao> reg_st) {
+    if (id <= reg_st.size()) {
+      switch (tipo) {
+        case "nome":
+          reg_st.get(id).nome = conteudo;
+          break;
+        default:
+          System.out.println("Tipo introduzido invalido");
+      }
+    }else{
+      System.out.println("Regiao nao existe");
+    }
   }
 
   @Override

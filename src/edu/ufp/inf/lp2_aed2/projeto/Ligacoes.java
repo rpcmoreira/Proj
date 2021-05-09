@@ -89,6 +89,29 @@ public class Ligacoes {
     System.out.println("Ligacao nao existe!");
   }
 
+  public void editLigacao(String tipo, String conteudo, int id, SequentialSearchST<Integer, Ligacoes> lig_st) {
+    if (id <= lig_st.size()) {
+      switch (tipo) {
+        case "id1":
+          lig_st.get(id).id_1 = conteudo;
+          break;
+        case "id2":
+          lig_st.get(id).id_2 = conteudo;
+          break;
+        case "distancia":
+          lig_st.get(id).distancia = Float.parseFloat(conteudo);
+          break;
+        case "tempo":
+          lig_st.get(id).tempo = Integer.parseInt(conteudo);
+          break;
+        default:
+          System.out.println("Tipo introduzido invalido");
+      }
+    }else{
+      System.out.println("Regiao nao existe");
+    }
+  }
+
   @Override
   public String toString() {
     return "Ligacoes{" +

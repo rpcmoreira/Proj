@@ -140,6 +140,39 @@ public class Geocache {
     }
   }
 
+
+
+  public void editCache(String tipo, String conteudo, int id, SequentialSearchST<Integer, Geocache> geo_st){
+    if(id <= geo_st.size()){
+      switch(tipo){
+        case "tipo":
+          geo_st.get(id).tipo = conteudo;
+          break;
+        case "coordenadasX":
+          geo_st.get(id).coordenadasX = Float.parseFloat(conteudo);
+          break;
+        case "coordenadasY":
+          geo_st.get(id).coordenadasY = Float.parseFloat(conteudo);
+          break;
+        case "regiao":
+          geo_st.get(id).id_reg = Integer.parseInt(conteudo);
+          break;
+        default:
+          System.out.println("Tipo introduzido invalido");
+      }
+    }else{
+      System.out.println("Geocache nao existe");
+    }
+  }
+
+  public void premiumWithItem(int[] sizes, SequentialSearchST<Integer, Geocache> geo_st){
+    for(int i = 0; i <= sizes[2]; i++){
+      if(geo_st.get(i) != null && geo_st.get(i).tipo.equals("premium") && geo_st.get(i).n_itens > 0){
+        System.out.println(geo_st.get(i).toString());
+      }
+    }
+  }
+
   @Override
   public String toString() {
     return "Geocache{" +

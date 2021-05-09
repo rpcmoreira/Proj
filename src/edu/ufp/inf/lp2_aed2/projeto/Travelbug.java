@@ -59,10 +59,28 @@ public class Travelbug {
   public void now() {
   }
 
-  public void addTravelbug(int id, String user, String geo_inicial, String geo_destino) {
+  public void addTravelbug(String id, String user, String geo_inicial, String geo_destino, int[]sizes, SequentialSearchST<Integer, Travelbug> tvb_st) {
+    int id_tb = Integer.parseInt(id.replace("travelbug", ""));
+    if(tvb_st.contains(id_tb)){
+      System.out.println("TravelBug ID ja definido!");
+    }
+    else{
+      Travelbug new_tb = new Travelbug(id, user, geo_inicial, geo_destino);
+      tvb_st.put(id_tb,new_tb);
+      System.out.println("TravelBug " + id + " adicionado com sucesso! -> " + new_tb);
+      sizes[4]++;
+    }
   }
 
-  public void removeTravelBug(String id) {
+  public void removeTravelBug(int id, int[] sizes, SequentialSearchST<Integer, Travelbug> tvb_st) {
+    if(tvb_st.contains(id)){
+      tvb_st.delete(id);
+      sizes[4]--;
+      System.out.println("Travelbug " + id + " removido com sucesso!");
+    }
+    else{
+      System.out.println("Travelbug Inválido!");
+    }
   }
 
   @Override

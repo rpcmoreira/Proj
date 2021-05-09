@@ -75,7 +75,24 @@ public class User {
     }
   }
 
-  public void editUser(){
+  public void editUser(String tipo, String conteudo, int id, SequentialSearchST<Integer, User> user_st){
+    if(id <= user_st.size()){
+      switch(tipo){
+        case "nome":
+          user_st.get(id).nome = conteudo;
+          break;
+        case "tipo":
+          user_st.get(id).tipo = conteudo;
+          break;
+        case "travelbug":
+          user_st.get(id).travelbug = Integer.parseInt(conteudo);
+          break;
+        default:
+          System.out.println("Tipo introduzido invalido");
+      }
+    }else{
+      System.out.println("User nao existe");
+    }
   }
 
   public void searchVisitedCacheGlobal(String nome, int[] sizes,SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> log){
