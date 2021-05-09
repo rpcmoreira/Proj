@@ -119,10 +119,10 @@ public class User {
   /**
    * funcao que lista as caches que um user visitou, de uma forma geral
    * @param nome - nome do user a procurar
-   * @param sizes
-   * @param geo_st
-   * @param reg_st
-   * @param log
+   * @param sizes - array com o numero total de user
+   * @param geo_st - ST das Geocaches
+   * @param reg_st - ST da Regiao
+   * @param log - ST do Historico dos Users
    */
   public void searchVisitedCacheGlobal(String nome, int[] sizes,SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> log){
       for(int i = 0; i <= sizes[6]; i++){
@@ -138,6 +138,15 @@ public class User {
       System.out.println("User nao encontrado/existe!");
     }
 
+  /**
+   * funcao que lista as caches que um user visitou, delimitando por regiao
+   * @param nome - nome do user a procurar
+   * @param id_reg - id da regiao para delimitar a pesquisa
+   * @param sizes - array com o numero total de user
+   * @param geo_st - ST das Geocaches
+   * @param reg_st - ST da Regiao
+   * @param log - ST do Historico dos Users
+   */
   public void searchVisitedCacheRegiao(String nome, int id_reg, int[] sizes, SequentialSearchST<Integer, Geocache> geo_st,  SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> log){
     for(int i = 0; i <= sizes[6]; i++){
     if(log.get(i) != null && log.get(i).user.equals(nome)) {
@@ -154,6 +163,14 @@ public class User {
     System.out.println("User nao encontrado/existe!");
   }
 
+  /**
+   * funcao para fazer a pesquisa das geocaches nao visitadas pelo user de forma geral
+   * @param nome - nome do user a procurar
+   * @param sizes - array com o numero total de user
+   * @param geo_st - ST das Geocaches
+   * @param reg_st - ST da Regiao
+   * @param log - ST do Historico dos Users
+   */
   public void searchMissingCacheGlobal(String nome, int[] sizes,SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> log){
     for(int i = 1; i <= sizes[6]; i++){
 
@@ -189,6 +206,15 @@ public class User {
     System.out.println("User nao encontrado/existe!");
   }
 
+  /**
+   * funcao que lista as caches que um user ainda nao visitou, delimitando por regiao
+   * @param nome - nome do user a procurar
+   * @param id_reg - id da regiao para delimitar a pesquisa
+   * @param sizes - array com o numero total de user
+   * @param geo_st - ST das Geocaches
+   * @param reg_st - ST da Regiao
+   * @param log - ST do Historico dos Users
+   */
   public void searchMissingCacheRegiao(String nome, int id_reg, int[] sizes,SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> log){
     for(int i = 1; i <= sizes[6]; i++){
 
