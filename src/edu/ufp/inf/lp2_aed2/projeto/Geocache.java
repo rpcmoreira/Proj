@@ -132,9 +132,6 @@ public class Geocache {
             }
 
             // Remover dos logs
-            // Criar array com as geos do user e size current, criar array aux com o current size -1, percorrer o
-            // array normal ate achar a posiçao da geo a remover ou se nao achar sair e nao fazer nada, se achar
-            // sair com o nr da posiçao pretendida e salvar todos os geos menos o da posiçao salva e atualizar o size e os logs
             for(int i = 1; i <= sizes[6]; i++){
                 // Funcao aux para salvar os ids geo visitados
                 int[] save = new int[hisV_st.get(i).n_visited];
@@ -153,9 +150,8 @@ public class Geocache {
                 if(stop != 0){
                     hisV_st.get(i).n_visited--;
                     hisV_st.get(i).visited = new int[hisV_st.get(i).n_visited];
-                    int l = 0;
-                    for(int k = l; k < hisV_st.get(i).n_visited; k++){
-                        if(l == search) l++;
+                    for(int k = 0, l = 0; k < hisV_st.get(i).n_visited; k++, l++){
+                        if(l == search - 1) l = l + 1;
                         hisV_st.get(i).visited[k] = save[l];
                     }
                 }
