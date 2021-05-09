@@ -421,18 +421,20 @@ public class main {
         }
 
         // Regiao
-        out.println(regiao.size());
         int n_reg = size[1];
+        out.println(n_reg);
         int last = 0;
         for(int i = 1; i <= n_reg; i++) {
             if (regiao.get(i) != null) {
                 out.println(regiao.get(i).nome + ", " + regiao.get(i).n_caches);
+                System.out.println(regiao.get(i).nome + ", " + regiao.get(i).n_caches);
 
                 //Geocaches
-                int n_geo = (regiao.get(i).n_caches + last + 1);
-                for (int j = last + 1; j < n_geo; j++) {
-                    if (geo.get(j) != null) {
+                int n_geo = (regiao.get(i).n_caches + last);
+                for (int j = last + 1; j <= n_geo; j++) {
+                    if (geo.get(j) != null && regContainsCache("geocache"+j,i,geo)) {
                         out.print(geo.get(j).id + ", " + geo.get(j).tipo + ", " + geo.get(j).coordenadasX + ", " + geo.get(j).coordenadasY + ", " + geo.get(j).n_itens);
+                        System.out.print(geo.get(j).id + ", " + geo.get(j).tipo + ", " + geo.get(j).coordenadasX + ", " + geo.get(j).coordenadasY + ", " + geo.get(j).n_itens);
                         if (geo.get(j).n_itens > 0) {
 
                             //itens
@@ -440,16 +442,16 @@ public class main {
                             for (int k = 1; k <= n_itens; k++) {
                                 if (geoContainsItem(k, geo.get(j).id, item)) {
                                     out.print(", " + item.get(k).item);
-                                } else {
-                                    n_itens++;
-                                }
+                                    System.out.print(", " + item.get(k).item);
+                                } else n_itens++;
                             }
                         }
                         last = j;
                         out.print("\n");
-                    }n_geo++;
+                        System.out.println();
+                    }else n_geo++;
                 }
-            }n_reg++;
+            }else n_reg++;
         }
 
         int n_lig = size[5];
