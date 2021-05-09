@@ -46,7 +46,7 @@ public class Regiao {
    */
   public void addRegiao(int id, String nome, int[] sizes, SequentialSearchST<Integer,Regiao> reg_st) {
     if(reg_st.contains(id)){
-      System.out.println("Regiao ja definida");
+      System.out.println("Erro na Inserção do Região:\tO ID " + id + " já existe!");
     }
     else{
       Regiao new_reg = new Regiao(nome, 0);
@@ -69,18 +69,21 @@ public class Regiao {
 
       if(reg_st.get(id).n_caches > 0){
         int n_geo = reg_st.get(id).n_caches;
+        System.out.println("Regiao " + id + " removida com sucesso!");
+        if(n_geo > 0) System.out.println("\t---------Remoçao-das-Geocaches----------");
         for(int i = 1; i <= n_geo; i++){
           if(geo_st.get(i) != null && geo_st.get(i).id_reg == id){
+            System.out.print("\t");
             geo_st.get(i).removeGeocache("geocache"+i,sizes,geo_st,reg_st,item_st);
           }else n_geo++;
         }
+        System.out.println("\t----------------------------------------");
       }
       reg_st.delete(id);
-      System.out.println("Regiao " + id + " removida com sucesso!");
       sizes[1]--;
     }
     else{
-      System.out.println("Regiao Inválida!");
+      System.out.println("Erro na Remoção da REGIÃO:\tO ID " + id + " não existe!");
     }
   }
 
@@ -92,14 +95,15 @@ public class Regiao {
    * @param reg_st - ST das Regioes
    */
   public void editRegiao(String tipo, String conteudo, int id, SequentialSearchST<Integer, Regiao> reg_st) {
-    if (id <= reg_st.size()) {
+    if (reg_st.get(id) != null && id <= reg_st.size()) {
       if ("nome".equals(tipo)) {
         reg_st.get(id).nome = conteudo;
+        System.out.println("Região " + id + " editada com sucesso! -> " + reg_st.get(id));
       } else {
-        System.out.println("Tipo introduzido invalido");
+        System.out.println("Tipo introduzido invalido na ediçao da Região");
       }
     }else{
-      System.out.println("Regiao nao existe");
+      System.out.println("Erro na Edição do REGIÃO:\tO ID " + id + " não existe!");
     }
   }
 
