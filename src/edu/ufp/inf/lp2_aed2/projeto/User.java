@@ -52,21 +52,35 @@ public class User {
     this.travelbug = travelbug;
   }
 
-  public void addUser(int id, String nome, String tipo, int[] sizes, SequentialSearchST<Integer, User> user){
-      if(user.contains(id)){
+  /**
+   * Funcao que cria um User e o adiciona na sua ST
+   * @param id - id do user a adicionar
+   * @param nome - nome do user a adicionar
+   * @param tipo - tipo do user a adicionar (basic, premium, admin)
+   * @param sizes - array com o numero total das variaveis (sendo a posicao 0 o numero de users
+   * @param user_st - ST dos users
+   */
+  public void addUser(int id, String nome, String tipo, int[] sizes, SequentialSearchST<Integer, User> user_st){
+      if(user_st.contains(id)){
         System.out.println("User ID ja definido!");
       }
       else{
         User new_u = new User(nome, tipo);
-        user.put(id,new_u);
+        user_st.put(id,new_u);
         System.out.println("User " + id + " adicionado com sucesso! -> " + new_u);
         sizes[0]++;
       }
   }
 
-  public void removeUser(int id, int[] sizes, SequentialSearchST<Integer, User> user) {
-    if(user.contains(id)){
-      user.delete(id);
+  /**
+   * Funcao que remove o User, usando o id, da ST
+   * @param id - id do user a remover
+   * @param sizes - array com o numero total das variaveis (sendo a posicao 0 o numero de users)
+   * @param user_st - ST dos users
+   */
+  public void removeUser(int id, int[] sizes, SequentialSearchST<Integer, User> user_st) {
+    if(user_st.contains(id)){
+      user_st.delete(id);
       sizes[0]--;
       System.out.println("User " + id + " removido com sucesso!");
     }
@@ -75,6 +89,13 @@ public class User {
     }
   }
 
+  /**
+   * Funcao que edita um parametro do user, recebendo o parametro a alterar
+   * @param tipo - parametro que se vai alterar
+   * @param conteudo - conteudo com o qual se vai alterar
+   * @param id - id do user
+   * @param user_st - ST dos Users
+   */
   public void editUser(String tipo, String conteudo, int id, SequentialSearchST<Integer, User> user_st){
     if(id <= user_st.size()){
       switch(tipo){
@@ -95,6 +116,14 @@ public class User {
     }
   }
 
+  /**
+   * funcao que lista as caches que um user visitou, de uma forma geral
+   * @param nome - nome do user a procurar
+   * @param sizes
+   * @param geo_st
+   * @param reg_st
+   * @param log
+   */
   public void searchVisitedCacheGlobal(String nome, int[] sizes,SequentialSearchST<Integer, Geocache> geo_st, SequentialSearchST<Integer, Regiao> reg_st, RedBlackBST<Integer, HistoricoVisited> log){
       for(int i = 0; i <= sizes[6]; i++){
         if(log.get(i) != null && log.get(i).user.equals(nome)){

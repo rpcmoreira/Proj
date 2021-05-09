@@ -174,8 +174,8 @@ public class main {
 
         // GEOCACHE
         Geocache geocache = new Geocache();
-        /*geocache.addGeocache("geocache19", "basic", -2.07543f, 43.87543f, 4, sizes, geo_st, reg_st);
-        for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
+        //geocache.addGeocache("geocache19", "premium", -2.07543f, 43.87543f, 1, sizes, geo_st, reg_st);
+        /*for (int i : new int[]{1, 5, 7, 14, 12, 11, 15, 16}) {
             String res = "geocache" + i;
             geocache.removeGeocache(res, sizes, geo_st, reg_st, item_st);
         }*/
@@ -212,10 +212,10 @@ public class main {
         //listarLigacoes(sizes, lig_st);
 
         // Pesquisas
-        //geocache.searchVisitedCacheGlobal("Fernando", sizes,geo_st, reg_st, hisV_st);
-        //geocache.searchVisitedCacheRegiao("Fernando", 2, sizes,geo_st, reg_st, hisV_st);
-        //geocache.searchMissingCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
-        //geocache.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);
+        //user.searchVisitedCacheGlobal("Fernando", sizes,geo_st, reg_st, hisV_st);
+        //user.searchVisitedCacheRegiao("Fernando", 2, sizes,geo_st, reg_st, hisV_st);
+        //user.searchMissingCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
+        //user.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);
         //geocache.usersVisitedCache("geocache1", sizes, user_st, geo_st,hisV_st);
         //geocache.premiumWithItem(sizes, geo_st);
 
