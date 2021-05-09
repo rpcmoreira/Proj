@@ -114,11 +114,13 @@ public class Geocache {
      * @param reg   - ST das Regioes
      * @param item  - ST dos Itens
      */
-    public void removeGeocache(String id, int[] sizes, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg, SequentialSearchST<Integer, Item> item) {
+    public void removeGeocache(String id, int[] sizes, SequentialSearchST<Integer, Geocache> geo, SequentialSearchST<Integer, Regiao> reg, SequentialSearchST<Integer, Item> item, RedBlackBST<Integer, HistoricoVisited> hisV_st) {
         int idgeo = Integer.parseInt(id.replace("geocache", ""));
 
         if (geo.contains(idgeo)) {
             System.out.println("Geocache " + id + " removida com sucesso!");
+
+            // Remover os itens
             if (geo.get(idgeo).n_itens > 0) {
                 int n_itens = geo.get(idgeo).n_itens;
                 for (int i = 1; i <= n_itens; i++) {
@@ -128,6 +130,38 @@ public class Geocache {
                     } else n_itens++;
                 }
             }
+
+            // Remover dos logs
+            // Criar array com as geos do user e size current, criar array aux com o current size -1, percorrer o
+            // array normal ate achar a posiçao da geo a remover ou se nao achar sair e nao fazer nada, se achar
+            // sair com o nr da posiçao pretendida e salvar todos os geos menos o da posiçao salva e atualizar o size e os logs
+            for(int i = 1; i <= sizes[6]; i++){
+                // Funcao aux para salvar os ids geo visitados
+                int[] save = new int[hisV_st.get(i).n_visited];
+                for(int j = 0; j < hisV_st.get(i).n_visited; j++){
+                    save[j] = hisV_st.get(i).visited[j];
+                }
+
+                // Consegue a posiçao da geo a remover
+                int stop = 0, search;
+                for(search = 0; stop == 0 && search < hisV_st.get(i).n_visited; search++){
+                    if (save[search] == idgeo) {
+                        stop++;
+                    }
+                }
+
+                if(stop != 0){
+                    hisV_st.get(i).n_visited--;
+                    hisV_st.get(i).visited = new int[hisV_st.get(i).n_visited];
+                    int l = 0;
+                    for(int k = l; k < hisV_st.get(i).n_visited; k++){
+                        if(l == search) l++;
+                        hisV_st.get(i).visited[k] = save[l];
+                    }
+                }
+            }
+
+            // Decrescer 1 das caches
             reg.get(geo.get(idgeo).id_reg).n_caches--;
             geo.delete(idgeo);
             sizes[2]--;
@@ -181,18 +215,21 @@ public class Geocache {
      */
     public void usersVisitedCache(String geo, int[] sizes, SequentialSearchST<Integer, User> user_st, SequentialSearchST<Integer, Geocache> geo_st, RedBlackBST<Integer, HistoricoVisited> histV_st) {
         int idgeo = Integer.parseInt(geo.replace("geocache", ""));
-        // 1 Percorrer todos os users, 2 em cada um verificar nos logs se 3 existe o idgeo e se 4 existir imprimir o user
-
-        System.out.println("Users que visitaram a Geocache " + idgeo + ":");
-        for (int i = 1; i <= sizes[0]; i++) {                                                                                 // Percorre os users
-            if (histV_st.get(i) != null && user_st.get(i) != null && histV_st.get(i).user.equals(user_st.get(i).nome)) {
-                for (int j = 0; j < histV_st.get(i).n_visited; j++) {                                                             // Percorre as geos que o user visitou
-                    if (histV_st.get(i).visited[j] == idgeo)                                                                       // Verifica se a geo é a mesma que se pretende
-                        System.out.println("\t\t" + user_st.get(i).nome);
+        if (geo_st.get(idgeo) == null) {
+            System.out.println("Erro na Pesquisa da Geocache:\t O ID da Geocache " + idgeo + " nao existe");
+        }else{
+            System.out.println("Users que visitaram a Geocache " + idgeo + ":");
+            for(int i = 1; i <= sizes[0]; i++){                                                                         // Percorre os users
+                if(user_st.get(i) != null){
+                    for(int j = 0; j < histV_st.get(i).n_visited; j++){                                                 // Percorre as geos que o user visitou
+                        if(histV_st.get(i).visited[j] == idgeo){                                                        // Verifica se a geo é a mesma que se pretende
+                            System.out.println("\t\t" + user_st.get(i).nome);
+                            break;
+                        }
+                    }
                 }
             }
         }
-        System.out.println();
     }
 
     /**

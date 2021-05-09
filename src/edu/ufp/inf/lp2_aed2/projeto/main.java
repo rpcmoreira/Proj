@@ -162,6 +162,7 @@ public class main {
         // TESTES - INSERIR, REMOVER E EDITAR
         // USERS
         User user = new User();
+        user.removeUser(1, sizes, user_st);
         /*user.addUser(1, "Patricia", "admin", sizes, user_st);
         user.addUser(8, "Patricia", "admin", sizes, user_st);
         user.removeUser(1, sizes, user_st);
@@ -172,10 +173,11 @@ public class main {
 
         // REGIAO
         Regiao regiao = new Regiao();
+        regiao.removeRegiao(1, sizes, reg_st, geo_st, item_st,hisV_st);
         /*regiao.addRegiao(1, "TesteReg", sizes, reg_st);
         regiao.addRegiao(4, "TesteReg", sizes, reg_st);
-        regiao.removeRegiao(1, sizes, reg_st, geo_st, item_st);
-        regiao.removeRegiao(1, sizes, reg_st, geo_st, item_st);
+        regiao.removeRegiao(1, sizes, reg_st, geo_st, item_st,hisV_st);
+        regiao.removeRegiao(1, sizes, reg_st, geo_st, item_st,hisV_st);
         regiao.editRegiao("nome", "TESTE", 1, reg_st);
         regiao.editRegiao("nome", "TESTE", 2, reg_st);
         System.out.println();*/
@@ -184,16 +186,15 @@ public class main {
         Geocache geocache = new Geocache();
         /*geocache.addGeocache("geocache1", "premium", -2.07543f, 43.87543f, 1, sizes, geo_st, reg_st);
         geocache.addGeocache("geocache19", "premium", -2.07543f, 43.87543f, 1, sizes, geo_st, reg_st);
-        for (int i : new int[]{1, 1}) {
-            String res = "geocache" + i;
-            geocache.removeGeocache(res, sizes, geo_st, reg_st, item_st);
-        }
-        geocache.editCache("tipo", "TESTE", 1, geo_st);
+        geocache.removeGeocache("geocache1", sizes, geo_st, reg_st, item_st,hisV_st);*/
+        //geocache.removeGeocache("geocache1", sizes, geo_st, reg_st, item_st,hisV_st);
+        /*geocache.editCache("tipo", "TESTE", 1, geo_st);
         geocache.editCache("tipo", "TESTE", 1, geo_st);
         System.out.println();*/
 
         // ITEM
         Item item = new Item();
+        //item.removeItem(1, sizes, item_st, geo_st);
         /*item.addItem(1,"geocache1", "mp3", sizes, item_st, geo_st);
         item.addItem(19,"geocache19", "mp3", sizes, item_st, geo_st);
         item.removeItem(1, sizes, item_st, geo_st);
@@ -204,6 +205,7 @@ public class main {
 
         // LIGACOES
         Ligacoes ligacao = new Ligacoes();
+        ligacao.removeLigacao("geocache1", "geocache2", sizes, lig_st);
         /*ligacao.addLigacao("geocache1", "geocache2", 599.6f, 4573, sizes, lig_st);
         ligacao.addLigacao("geocache1", "geocache18", 599.6f, 4573, sizes, lig_st);
         ligacao.removeLigacao("geocache1", "geocache2", sizes, lig_st);
@@ -214,6 +216,7 @@ public class main {
 
         // TRAVELBUG
         Travelbug travelbug = new Travelbug();
+        travelbug.removeTravelBug(1, sizes, tvb_st);
         /*travelbug.addTravelbug("travelbug1", "Pedro", "geocache12", "geocache13",sizes, tvb_st);
         travelbug.removeTravelBug(1, sizes, tvb_st);*/
 
@@ -229,12 +232,12 @@ public class main {
         /*user.searchVisitedCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
         user.searchVisitedCacheRegiao("Pedro", 3, sizes,geo_st, reg_st, hisV_st);
         user.searchMissingCacheGlobal("Pedro", sizes,geo_st, reg_st, hisV_st);
-        user.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);
-        geocache.usersVisitedCache("geocache1", sizes, user_st, geo_st,hisV_st);
-        geocache.premiumWithItem(sizes, geo_st);*/
+        user.searchMissingCacheRegiao("Pedro",2, sizes,geo_st, reg_st, hisV_st);*/
+        //geocache.usersVisitedCache("geocache1", sizes, user_st, geo_st, hisV_st);
+        //geocache.premiumWithItem(sizes, geo_st);
 
         // Save
-        /*output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);*/
+        output(sizes, user_st, reg_st, geo_st, item_st, lig_st, tvb_st, hisV_st, hisTB_st);
     }
 
     /**
@@ -421,41 +424,44 @@ public class main {
         out.println(regiao.size());
         int n_reg = size[1];
         int last = 0;
-        for(int i = 1; i <= n_reg; i++){
-            out.println(regiao.get(i).nome + ", " + regiao.get(i).n_caches);
+        for(int i = 1; i <= n_reg; i++) {
+            if (regiao.get(i) != null) {
+                out.println(regiao.get(i).nome + ", " + regiao.get(i).n_caches);
 
-            //Geocaches
-            int n_geo = (regiao.get(i).n_caches + last + 1);
-            for(int j = last + 1; j<n_geo; j++){
-                out.print(geo.get(j).id + ", " + geo.get(j).tipo + ", " + geo.get(j).coordenadasX + ", " + geo.get(j).coordenadasY + ", " + geo.get(j).n_itens);
-                if(geo.get(j).n_itens > 0){
+                //Geocaches
+                int n_geo = (regiao.get(i).n_caches + last + 1);
+                for (int j = last + 1; j < n_geo; j++) {
+                    if (geo.get(j) != null) {
+                        out.print(geo.get(j).id + ", " + geo.get(j).tipo + ", " + geo.get(j).coordenadasX + ", " + geo.get(j).coordenadasY + ", " + geo.get(j).n_itens);
+                        if (geo.get(j).n_itens > 0) {
 
-                    //itens
-                    int n_itens = geo.get(j).n_itens;
-                    for(int k = 1; k <= n_itens; k++){
-                        if(geoContainsItem(k, geo.get(j).id, item)){
-                            out.print(", " + item.get(k).item);
+                            //itens
+                            int n_itens = geo.get(j).n_itens;
+                            for (int k = 1; k <= n_itens; k++) {
+                                if (geoContainsItem(k, geo.get(j).id, item)) {
+                                    out.print(", " + item.get(k).item);
+                                } else {
+                                    n_itens++;
+                                }
+                            }
                         }
-                        else{
-                            n_itens++;
-                        }
-                    }
+                        last = j;
+                        out.print("\n");
+                    }n_geo++;
                 }
-                last = j;
-                out.print("\n");
-            }
+            }n_reg++;
         }
 
         int n_lig = size[5];
         out.println(lig.size());
         for(int i = 1; i <= n_lig; i++){
-            out.println(lig.get(i).id_1 + ", " + lig.get(i).id_2 + ", " + lig.get(i).distancia + ", " + lig.get(i).tempo);
+            if(lig.get(i) != null) out.println(lig.get(i).id_1 + ", " + lig.get(i).id_2 + ", " + lig.get(i).distancia + ", " + lig.get(i).tempo);
         }
 
         int n_tvb = size[4];
         out.println(tvb.size());
         for(int i = 1; i <= n_tvb; i++){
-            out.println(tvb.get(i).id + ", " + tvb.get(i).user + ", " + tvb.get(i).geo_inicial + ", " + tvb.get(i).geo_destino);
+            if(tvb.get(i) != null) out.println(tvb.get(i).id + ", " + tvb.get(i).user + ", " + tvb.get(i).geo_inicial + ", " + tvb.get(i).geo_destino);
         }
 
         out.close();
