@@ -86,19 +86,17 @@ public class Regiao {
 
   /**
    * Edita o parametro de uma regiao, alterando-o para o conteudo recebido
-   * @param tipo - Parametro a alterar
+   * @param tipo - Parametro a alterar, baseado nas variaveis da classe
    * @param conteudo - Valor para qual se mudara o parametro
    * @param id - Id da Regiao
    * @param reg_st - ST das Regioes
    */
   public void editRegiao(String tipo, String conteudo, int id, SequentialSearchST<Integer, Regiao> reg_st) {
     if (id <= reg_st.size()) {
-      switch (tipo) {
-        case "nome":
-          reg_st.get(id).nome = conteudo;
-          break;
-        default:
-          System.out.println("Tipo introduzido invalido");
+      if ("nome".equals(tipo)) {
+        reg_st.get(id).nome = conteudo;
+      } else {
+        System.out.println("Tipo introduzido invalido");
       }
     }else{
       System.out.println("Regiao nao existe");

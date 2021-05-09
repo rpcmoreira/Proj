@@ -34,7 +34,7 @@ public class Item {
   }
 
   /**
-   * Remove um item, removendo o tambem da respetiva geocache
+   * Remove um item, removendo-o tambem da respetiva geocache
    * @param id - Id do Item a remover
    * @param sizes - Array com o numero total de Itens
    * @param itens - ST dos Itens
@@ -78,7 +78,7 @@ public class Item {
 
   /**
    * Edita o parametro recebido de um Item, para o conteudo recebido
-   * @param tipo - Parametro a alterar
+   * @param tipo - Parametro a alterar, baseado nas variaveis da classe
    * @param conteudo - Conteudo que sera o novo parametro
    * @param id - Id do Item
    * @param item_st - ST das Itens

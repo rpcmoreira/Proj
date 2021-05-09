@@ -53,7 +53,7 @@ public class User {
   }
 
   /**
-   * Cria um User e o adiciona na sua ST
+   * Cria um User e adiciona-o na sua ST
    * @param id - id do user a adicionar
    * @param nome - nome do user a adicionar
    * @param tipo - tipo do user a adicionar (basic, premium, admin)
@@ -90,7 +90,7 @@ public class User {
   }
 
   /**
-   * Edita um parametro do user, recebendo o parametro a alterar
+   * Edita um parametro do user, recebendo o parametro a alterar, baseado nas variaveis da classe
    * @param tipo - parametro que se vai alterar
    * @param conteudo - conteudo com o qual se vai alterar
    * @param id - id do user
@@ -117,7 +117,7 @@ public class User {
   }
 
   /**
-   * Lista as caches que um user visitou, de uma forma geral
+   * Lista todas as caches que um user visitou
    * @param nome - nome do user a procurar
    * @param sizes - array com o numero total de user
    * @param geo_st - ST das Geocaches
@@ -139,7 +139,7 @@ public class User {
     }
 
   /**
-   * Lista as caches que um user visitou, delimitando por regiao
+   * Lista as caches que um user visitou numa certa região
    * @param nome - nome do user a procurar
    * @param id_reg - id da regiao para delimitar a pesquisa
    * @param sizes - array com o numero total de user
@@ -164,7 +164,7 @@ public class User {
   }
 
   /**
-   * Lista as geocaches nao visitadas pelo user, de uma forma geral
+   * Lista todas as geocaches nao visitadas pelo user
    * @param nome - nome do user a procurar
    * @param sizes - array com o numero total de user
    * @param geo_st - ST das Geocaches
@@ -207,7 +207,7 @@ public class User {
   }
 
   /**
-   * Lista as caches que um user ainda nao visitou, delimitando por regiao
+   * Lista as caches que um user ainda nao visitou numa certa região
    * @param nome - nome do user a procurar
    * @param id_reg - id da regiao para delimitar a pesquisa
    * @param sizes - array com o numero total de user
@@ -250,12 +250,6 @@ public class User {
       }
     }
     System.out.println("User nao encontrado/existe!");
-  }
-
-
-
-  public void logUser(int id) {
-
   }
 
   @Override

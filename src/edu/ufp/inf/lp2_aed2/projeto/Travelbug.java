@@ -60,7 +60,7 @@ public class Travelbug {
   }
 
   /**
-   * Cria um Travelbug
+   * Cria um Travelbug, e adiciona-o a ST
    * @param id - Id do Travelbug a adicionar
    * @param user - Ultimo User que possui o Travelbug
    * @param geo_inicial - Geocache onde o Travelbug se encontra inicialmente

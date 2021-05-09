@@ -2,6 +2,9 @@ package edu.ufp.inf.lp2_aed2.projeto;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Ficheiro retirado da aula
+ */
 public class Date implements Comparable<Date> {
 
     public int day;

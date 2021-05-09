@@ -107,7 +107,7 @@ public class Ligacoes {
 
   /**
    * Edita o parametro de uma ligacao, alterando-o para o conteudo recebido
-   * @param tipo - @param tipo - Parametro a alterar
+   * @param tipo - @param tipo - Parametro a alterar, baseado nas variaveis da classe
    * @param conteudo - Valor para qual se mudara o parametro
    * @param id - Id da ligacao
    * @param lig_st - ST das Ligacoes

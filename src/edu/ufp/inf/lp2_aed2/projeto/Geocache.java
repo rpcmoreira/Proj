@@ -73,7 +73,7 @@ public class Geocache {
   }
 
   /**
-   * Cria uma geocache, recebendo os parametros, na ST das geocaches
+   * Cria uma geocache, recebendo os parametros, na ST das geocaches, e adiciona-a a região
    * @param id - Id da geocache a adicionar
    * @param tipo - Tipo da geocache (basic ou premium)
    * @param cX - Latitude onde a geocache se encontra
@@ -98,7 +98,7 @@ public class Geocache {
   }
 
   /**
-   * Remove uma geocache, usando o id de uma cache, da ST das geocaches, removendo tambem os seus itens da ST dos Itens
+   * Remove uma geocache, usando o id da mesma, da ST das geocaches, removendo tambem os seus itens da ST dos Itens, e removendo-a da região
    * @param id - ID da geocache
    * @param sizes - Array com o numero total de Geocaches
    * @param geo - ST das Geocahces
@@ -131,7 +131,7 @@ public class Geocache {
 
   /**
    * Edita o parametro recebido de uma Geocache, para o conteudo recebido
-   * @param tipo - Parametro a alterar
+   * @param tipo - Parametro a alterar, baseado nas variaveis da classe
    * @param conteudo - Conteudo que sera o novo parametro
    * @param id - Id da Geocache
    * @param geo_st - ST das Geocaches
@@ -183,7 +183,7 @@ public class Geocache {
   }
 
   /**
-   * Lista todas as Geocaches premium que possuem Itens
+   * Lista todas as Geocaches premium que possuem pelo menos 1 Item
    * @param sizes - Array com o numero total de Geocaches
    * @param geo_st - ST das Geocaches
    */
@@ -207,6 +207,11 @@ public class Geocache {
             '}';
   }
 
+  /**
+   * Coloca uma String com a primeira letra em maiuscula
+   * @param str - String para por com maiuscula
+   * @return - Da return a string com a primeira letra maiuscula
+   */
   public static String capitalize(String str) {
     int strLen;
     if (str == null || (strLen = str.length()) == 0) {

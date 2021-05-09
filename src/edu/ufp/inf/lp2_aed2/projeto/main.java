@@ -10,7 +10,7 @@ public class main {
 
     public static void main(String[] args) {
         // Start
-        //int n_user = 0, n_reg = 0, n_geo = 0,n_itens = 0, n_tv = 0, n_lig = 0, n_visitado, n_histTB;
+        // sizes = n_user, n_reg, n_geo,n_itens, n_tv, n_lig, n_visitado, n_histTB;
         int[] sizes = new int[8];
         for(int i = 0; i < 8; i++) sizes[i] = 0;
 
@@ -238,7 +238,7 @@ public class main {
     }
 
     /**
-     * Verifica se uma regiao contem a cache
+     * Verifica se uma regiao contem a geocache
      * @param id_geo - Id da Geocache
      * @param regiao - Id da Regiao
      * @param geo - ST das Geocaches
@@ -312,7 +312,7 @@ public class main {
     }
 
     /**
-     * Funcao que lista todos os itens
+     * Lista todos os itens
      * @param sizes - Array com o numero total de itens
      * @param item_st - ST dos Itens
      */
@@ -342,7 +342,7 @@ public class main {
     }
 
     /**
-     * Funcao que lista todas as regioes, com as suas geocaches e respetivos itens
+     * Lista todas as regioes, com as suas geocaches e os respetivos itens
      * @param sizes - Array com o numero total de regios
      * @param reg_st - ST das Regioes
      * @param geo_st - St das Geocaches
@@ -377,18 +377,8 @@ public class main {
         }
     }
 
-    /*public static void listarVisitas(SequentialSearchST<Integer, Historico> his_st){
-        //int n_hist = his_st.get(0).;
-        System.out.println("\n");
-        for(int i = 0; i < n_tv; i++){
-            if(tvb_st.get(i+1) != null) System.out.println(i+1 + " " + tvb_st.get(i+1));
-            else n_tv++;
-        }
-        //System.out.println("\n");
-    }*/
-
     /**
-     * Funcao que da output de toda a informacao para um ficheiro
+     * Funcao que salva toda a informacao para um ficheiro
      * @param size - Array que tem o numero total de dos valores das STs
      * @param user - St dos Users
      * @param regiao - ST das Regioes
